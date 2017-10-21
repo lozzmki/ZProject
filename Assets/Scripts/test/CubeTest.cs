@@ -25,8 +25,8 @@ public class CubeTest : MonoBehaviour {
 
     public void createCube()
     {
-        GameObject _obj = Instantiate(m_Prefab, gameObject.transform.position + 10.0f * new Vector3(Random.value, 0.1f, Random.value), Random.rotation);
-        int _id = ObjectManager.getInstance().addObject(_obj);
+        //GameObject _obj = Instantiate(m_Prefab, gameObject.transform.position + 10.0f * new Vector3(Random.value, 0.1f, Random.value), Random.rotation);
+        //int _id = ObjectManager.getInstance().addObject(_obj);
         //_obj.GetComponent<Attribute>().m_ID = _id;
     }
 

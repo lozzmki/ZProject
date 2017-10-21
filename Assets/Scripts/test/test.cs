@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class test : MonoBehaviour, nglib.IEventListener {
+public class ttest : MonoBehaviour, nglib.IEventListener {
     private float m_fTime;
 	// Use this for initialization
 	void Start () {

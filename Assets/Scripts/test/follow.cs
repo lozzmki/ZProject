@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class follow : MonoBehaviour {
     public Transform m_Player;
 	// Use this for initialization
 	void Start () {
-		
+        GameObject.CreatePrimitive(PrimitiveType.Cube);
 	}
 	
 	// Update is called once per frame

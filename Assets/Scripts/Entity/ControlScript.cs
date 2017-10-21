@@ -36,7 +36,7 @@ public class ControlScript : MonoBehaviour {
     {
         if (Mathf.Abs(fHor) < 1e-4 && Mathf.Abs(fVer) < 1e-4)
         {
-            m_Actor.GetComponent<playerControl>().Reset();
+            //m_Actor.GetComponent<playerControl>().Reset();
             m_nState = 0;
             return;
         }
@@ -57,7 +57,7 @@ public class ControlScript : MonoBehaviour {
         }
 
         gameObject.transform.position += _vDirection.normalized * m_Speed * Time.deltaTime;
-        m_Actor.GetComponent<playerControl>().Run();
+        //m_Actor.GetComponent<playerControl>().Run();
 
         Vector3 _vTurn = gameObject.transform.InverseTransformDirection(_vDirection);
         float _fAngle = Mathf.Atan2(_vTurn.x, _vTurn.z) * Mathf.Rad2Deg;
@@ -74,46 +74,46 @@ public class ControlScript : MonoBehaviour {
     }
     private void Attack()
     {
-        m_nState = 2;//Attacking
-        Debug.Log("Attack");
-        int _nSel = Random.Range(0, 3);
-        switch (_nSel)
-        {
-            case 0:
-                m_Actor.GetComponent<playerControl>().Attack01();
-                break;
-            case 1:
-                m_Actor.GetComponent<playerControl>().Attack02();
-                break;
-            default:
-                m_Actor.GetComponent<playerControl>().Attack03();
-                break;
-        }
+//         m_nState = 2;//Attacking
+//         Debug.Log("Attack");
+//         int _nSel = Random.Range(0, 3);
+//         switch (_nSel)
+//         {
+//             case 0:
+//                 m_Actor.GetComponent<playerControl>().Attack01();
+//                 break;
+//             case 1:
+//                 m_Actor.GetComponent<playerControl>().Attack02();
+//                 break;
+//             default:
+//                 m_Actor.GetComponent<playerControl>().Attack03();
+//                 break;
+//         }
     }
 
     public void AttackKF()
     {
         //key frame
-        Attribute _playerAttr = gameObject.GetComponent<Attribute>();
-        Debug.Assert(_playerAttr != null, "player needs attribute");
-        foreach(var _kv in ObjectManager.getInstance().getDic())
-        {
-            GameObject _obj = _kv.Value;
-            Attribute _attr = _obj.GetComponent<Attribute>();
-            if(_attr != null && _obj != this)
-            {
-                Vector3 _vTarget = _obj.transform.position - gameObject.transform.position;
-                Vector3 _vDirection = gameObject.transform.forward;
-
-                float _fDistance = _vTarget.magnitude;
-                float _fAngle = Vector3.Angle(_vDirection, _vTarget);
-
-//                 if(_fDistance <= _playerAttr.Range && _fAngle < 45.0f)
-//                 {
-//                     //_attr.damage(_playerAttr.Attack - _attr.Armor);
-//                 }
-            }
-        }
+//         Attribute _playerAttr = gameObject.GetComponent<Attribute>();
+//         Debug.Assert(_playerAttr != null, "player needs attribute");
+//         foreach(var _kv in ObjectManager.getInstance().getDic())
+//         {
+//             GameObject _obj = _kv.Value;
+//             Attribute _attr = _obj.GetComponent<Attribute>();
+//             if(_attr != null && _obj != this)
+//             {
+//                 Vector3 _vTarget = _obj.transform.position - gameObject.transform.position;
+//                 Vector3 _vDirection = gameObject.transform.forward;
+// 
+//                 float _fDistance = _vTarget.magnitude;
+//                 //float _fAngle = Vector3.Angle(_vDirection, _vTarget);
+// 
+// //                 if(_fDistance <= _playerAttr.Range && _fAngle < 45.0f)
+// //                 {
+// //                     //_attr.damage(_playerAttr.Attack - _attr.Armor);
+// //                 }
+//             }
+//         }
     }
     public void AttackFinished()
     {
