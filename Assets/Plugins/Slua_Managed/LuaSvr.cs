@@ -68,6 +68,14 @@ namespace SLua
 			}
 		}
 
+        static LuaSvr _inst;
+        public static LuaSvr getInstance() {
+            if (_inst == null) {
+                _inst = new LuaSvr();
+                _inst.init(null, ()=>{ });
+            }
+            return _inst;
+        }
 		public LuaSvr()
 		{
 			mainState = new MainState();
@@ -243,5 +251,17 @@ namespace SLua
 			}
 			return null;
 		}
+
+        public object callFunction(string sFile, string sFunc)
+        {
+            if (sFile != null) {
+                mainState.doFile(sFile);
+                if (sFunc != null)
+                    return mainState.run(sFunc);
+                else
+                    return null;
+            }
+            return null;
+        }
 	}
 }

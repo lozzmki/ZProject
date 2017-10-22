@@ -22,6 +22,8 @@ public class ttest : MonoBehaviour, nglib.IEventListener {
 
     public bool handleEvent(nglib.Event e)
     {
+
+        
         switch (e._nType)
         {
             case nglib.Event.EVENT_DEFAULT:

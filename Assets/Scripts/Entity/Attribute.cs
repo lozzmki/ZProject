@@ -8,6 +8,7 @@ public enum AttrType
     MAX_HP,
     MAX_EN,
     MELEE_POWER,
+    RANGE_POWER,
     ARMOR,
     SPEED
 }
@@ -49,12 +50,6 @@ public struct DProperty
 
 public class Attribute : MonoBehaviour {
     public string m_EntityName = "Default Entity Name";
-    public float m_MaxHP;
-    public float m_MaxEnergy;
-    public float m_MeleePower;
-    public float m_Armor;
-    public float m_Speed;
-
     //current value
     public float m_fHp;
     public float m_fEnergy;
@@ -66,33 +61,22 @@ public class Attribute : MonoBehaviour {
     public const int MAX_HP = 0;
     public const int MAX_EN = 1;
     public const int MELEE_POWER = 2;
-    public const int ARMOR = 3;
-    public const int SPEED = 4;
-
+    public const int RANGE_POWER = 3;
+    public const int ARMOR = 4;
+    public const int SPEED = 5;
 
     [HideInInspector] public DProperty[] m_Properties;
     private float m_fBurden;
     private void Start()
     {
-        m_Properties = new DProperty[5];
-        m_Properties[MAX_HP].d_Value = m_MaxHP;
-        m_Properties[MAX_EN].d_Value = m_MaxEnergy;
-        m_Properties[MELEE_POWER].d_Value = m_MeleePower;
-        m_Properties[ARMOR].d_Value = m_Armor;
-        m_Properties[SPEED].d_Value = m_Speed;
+        m_Properties = new DProperty[6];
+        //init from lua script
         
     }
     private void Update()
     {
-        //update read-only infos on the inspector
+       
 
-        //debug
-        m_MaxHP = m_Properties[MAX_HP].d_Value;
-        m_MaxEnergy = m_Properties[MAX_EN].d_Value;
-        m_MeleePower = m_Properties[MELEE_POWER].d_Value;
-        m_Armor = m_Properties[ARMOR].d_Value;
-        m_Speed = m_Properties[SPEED].d_Value;
-        //debug end
     }
 
 
