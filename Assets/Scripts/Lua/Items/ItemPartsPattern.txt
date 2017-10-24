@@ -1,0 +1,23 @@
+require "Assets.Scripts.Lua.Items.Header" --定义了一些常量
+
+--物品的属性表
+properties = {
+	Name =					"TestItem4";--物品名/注册名
+	Type =					ITEM_PARTS;
+	Damage = 				0.0;
+	Weight = 				1.0; 
+	Mesh = 					"Shell";--模型文件名
+	Bonus = {
+		{ATTR_MAX_HP, IS_RATIO, 10.0};--{属性，是否是比例，值}
+		{ATTR_MAX_EN, IS_FIXED, 20.0};
+		{ATTR_MELEE_POWER, IS_FIXED, 10.0};
+		
+		--需要更多的值就按格式加新行
+	};
+	Description = 			"这是一种测试用的弹药，然而没装火药";
+}
+
+--使用时调用，usr为使用者ID
+function OnUse(usr)
+	print("ItemUsed");
+end

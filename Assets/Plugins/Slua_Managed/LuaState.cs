@@ -1255,9 +1255,9 @@ end
 
 
 					if (SLuaSetting.Instance.jitType == JITBUILDTYPE.none) {
-                        asset = (TextAsset)Resources.Load (fn);
-                        //fn = "Assets/Scripts/Lua/" + fn + ".lua";
-                        //asset = loadAsset(fn);
+                        //asset = (TextAsset)Resources.Load (fn);
+                        fn = "Assets/Scripts/Lua/" + fn + ".txt";
+                        asset = loadAsset(fn);
 					}
 					else if (SLuaSetting.Instance.jitType == JITBUILDTYPE.X86) {
 						asset = loadAsset("Assets/Slua/jit/jitx86/" + fn + ".bytes");

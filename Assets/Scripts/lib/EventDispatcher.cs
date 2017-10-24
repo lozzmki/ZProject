@@ -1,17 +1,21 @@
 ﻿using System.Collections.Generic;
 
 namespace nglib {
+
+    public enum EventType
+    {
+        EVENT_DEFAULT,
+
+   }
     public class Event
     {
-        public const int EVENT_DEFAULT = 0;
-
-        public int _nType;
+        public EventType _nType;
         public int _nArg1=0;
         public int _nArg2=0;
         public float _fArg1=0.0f;
         public float _fArg2=0.0f;
 
-        public Event(int nType = EVENT_DEFAULT)
+        public Event(EventType nType = EventType.EVENT_DEFAULT)
         {
             _nType = nType;
         }
@@ -22,14 +26,15 @@ namespace nglib {
     }
     struct DTempListenerNode
     {
-        public int _nEventID;
+        public EventType _nEventID;
         public IEventListener _listener;
-        public DTempListenerNode(int nEventID, IEventListener iListener)
+        public DTempListenerNode(EventType nEventID, IEventListener iListener)
         {
             _nEventID = nEventID;
             _listener = iListener;
         }
     }
+    //弃用
     public class EventDispatcher {
 
         private static EventDispatcher s_inst;
@@ -57,7 +62,7 @@ namespace nglib {
         }
         
 
-        public void addListener(int nEventID, IEventListener iListener)
+        public void addListener(EventType nEventID, IEventListener iListener)
         {
             if (m_bSafeLock)
             {
@@ -66,20 +71,20 @@ namespace nglib {
             }
 
             LinkedList<IEventListener> _list;
-            if (!m_EventListeners.ContainsKey(nEventID))
+            if (!m_EventListeners.ContainsKey((int)nEventID))
             {
                 _list = new LinkedList<IEventListener>();
-                m_EventListeners.Add(nEventID, _list);
+                m_EventListeners.Add((int)nEventID, _list);
             }
             else
             {
-                _list = m_EventListeners[nEventID];
+                _list = m_EventListeners[(int)nEventID];
             }
 
             _list.AddLast(iListener);
         }
 
-        public void removeListener(int nEventID, IEventListener iListener)
+        public void removeListener(EventType nEventID, IEventListener iListener)
         {
             if (m_bSafeLock)
             {
@@ -88,13 +93,13 @@ namespace nglib {
             }
 
             LinkedList<IEventListener> _list;
-            if (!m_EventListeners.ContainsKey(nEventID))
+            if (!m_EventListeners.ContainsKey((int)nEventID))
             {
                 return;
             }
             else
             {
-                _list = m_EventListeners[nEventID];
+                _list = m_EventListeners[(int)nEventID];
             }
 
             foreach (IEventListener _p in _list)
@@ -111,9 +116,9 @@ namespace nglib {
         {
             if(!m_bSafeLock){
                 m_bSafeLock = true;
-                if (m_EventListeners.ContainsKey(e._nType))
+                if (m_EventListeners.ContainsKey((int)e._nType))
                 {
-                    LinkedList<IEventListener> _list = m_EventListeners[e._nType];
+                    LinkedList<IEventListener> _list = m_EventListeners[(int)e._nType];
                     foreach (IEventListener _p in _list)
                     {
                         if (_p.handleEvent(e))

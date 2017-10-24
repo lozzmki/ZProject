@@ -6,7 +6,7 @@ public class ttest : MonoBehaviour, nglib.IEventListener {
     private float m_fTime;
 	// Use this for initialization
 	void Start () {
-        nglib.EventDispatcher.getInstance().addListener(nglib.Event.EVENT_DEFAULT, this);
+        nglib.EventDispatcher.getInstance().addListener(nglib.EventType.EVENT_DEFAULT, this);
         m_fTime = 0.0f;
 	}
 	
@@ -16,7 +16,7 @@ public class ttest : MonoBehaviour, nglib.IEventListener {
         if (m_fTime > 1.0f)
         {
             m_fTime = 0.0f;
-            nglib.EventDispatcher.getInstance().fireEvent(new nglib.Event(nglib.Event.EVENT_DEFAULT));
+            nglib.EventDispatcher.getInstance().fireEvent(new nglib.Event(nglib.EventType.EVENT_DEFAULT));
         }
 	}
 
@@ -26,7 +26,7 @@ public class ttest : MonoBehaviour, nglib.IEventListener {
         
         switch (e._nType)
         {
-            case nglib.Event.EVENT_DEFAULT:
+            case nglib.EventType.EVENT_DEFAULT:
                 Debug.Log("Received!");
                 break;
         }

@@ -70,6 +70,7 @@ public class Attribute : MonoBehaviour {
     private void Start()
     {
         m_Properties = new DProperty[6];
+        m_Properties[SPEED].d_Value = 15;//for test
         //init from lua script
         
     }
