@@ -1,12 +1,13 @@
 require "Assets.Scripts.Lua.Items.Header" --定义了一些常量
-
+--文件名为注册名
 --物品的属性表
 properties = {
-	Name =					"TestItem4";--物品名/注册名
+	Name =					"TestItem4";--物品名
 	Type =					ITEM_PARTS;
-	Damage = 				0.0;
+	Damage = 				5.0;
 	Weight = 				1.0; 
-	Mesh = 					"Shell";--模型文件名
+	Mesh = 					"Shell";--物品模型文件名
+	Ammo = 					"Default";--子弹预制体名,
 	Bonus = {
 		{ATTR_MAX_HP, IS_RATIO, 10.0};--{属性，是否是比例，值}
 		{ATTR_MAX_EN, IS_FIXED, 20.0};

@@ -1,0 +1,94 @@
+Initialize engine version: 5.5.2f1 (3829d7f588f3)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: Intel(R) HD Graphics 620 (ID=0x5916)
+    Vendor:   Intel
+    VRAM:     2111 MB
+    Driver:   21.20.16.4727
+Begin MonoManager ReloadAssembly
+Platform assembly: E:\Unity\Game\test_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading E:\Unity\Game\test_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: E:\Unity\Game\test_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading E:\Unity\Game\test_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: E:\Unity\Game\test_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading E:\Unity\Game\test_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: E:\Unity\Game\test_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading E:\Unity\Game\test_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: E:\Unity\Game\test_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading E:\Unity\Game\test_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: E:\Unity\Game\test_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
+Loading E:\Unity\Game\test_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
+Platform assembly: E:\Unity\Game\test_Data\Managed\BytesHelper.dll (this message is harmless)
+Loading E:\Unity\Game\test_Data\Managed\BytesHelper.dll into Unity Child Domain
+- Completed reload, in  0.446 seconds
+Platform assembly: E:\Unity\Game\test_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: E:\Unity\Game\test_Data\Managed\System.dll (this message is harmless)
+desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 2.306985 ms
+Shell (UnityEngine.GameObject)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+tesst
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Platform assembly: E:\Unity\Game\test_Data\Managed\Mono.Security.dll (this message is harmless)
+Can't find Items/ItemArmorPattern
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at Item.InitFromLuaFile () [0x00000] in <filename unknown>:0 
+  at Item.Start () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+tesst
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Can't find Items/ItemMeleePattern
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at Item.InitFromLuaFile () [0x00000] in <filename unknown>:0 
+  at Item.Start () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+tesst
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Can't find Items/ItemPartsPattern
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at Item.InitFromLuaFile () [0x00000] in <filename unknown>:0 
+  at Item.Start () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+tesst
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Can't find Items/ItemRangePattern
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at Item.InitFromLuaFile () [0x00000] in <filename unknown>:0 
+  at Item.Start () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Setting up 1 worker threads for Enlighten.
+  Thread -> id: 5200 -> priority: 1 

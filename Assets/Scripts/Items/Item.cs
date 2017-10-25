@@ -8,6 +8,7 @@ public enum ItemType
     ITEM_MELEE,
     ITEM_PARTS,
     ITEM_ARMOR,
+    ITEM_SUPPLY,
 }
 
 public enum ShotType
@@ -36,7 +37,11 @@ public class Item : MonoBehaviour {
     public float m_Weight;
     public string m_LuaScript="";
     public string m_Prefab = "";
+    public string m_Projectile = "";
     public DAttributeBonus[] m_BonusList;
+    public Texture2D m_Icon;
+
+    private float m_fCooldown;
 
     [SLua.CustomLuaClass]
     public delegate void ItemUsage();
@@ -51,16 +56,17 @@ public class Item : MonoBehaviour {
         if (m_LuaScript == "")
             return;
         //init from lua script,the content path shall be modified,fin.
-        if(!m_bIfLoaded)
-            InitFromLuaFile();
+//         if(!m_bIfLoaded)
+//             InitFromLuaFile();
 
     }
 
     // Update is called once per frame
     void Update()
     {
-
-
+        if(m_fCooldown > 0.0f) {
+            m_fCooldown -= Time.deltaTime;
+        }
     }
 
     public void Use()
@@ -71,10 +77,23 @@ public class Item : MonoBehaviour {
         }
     }
 
-    private void InitFromLuaFile() {
+    public void Attack()
+    {
+        if(m_fCooldown <= 0.0f) {
+            m_fCooldown = 1.0f / m_AttackSpeed;
+        }
+    }
+    public bool IfCooled
+    {
+        get
+        {
+            return m_fCooldown <= 0.0f;
+        }
+    }
+
+    public void InitFromLuaFile() {
         SLua.LuaTable _table;
         //Script prefix path: Assets/Scripts/Lua/
-
         //read file
         _table = (SLua.LuaTable)SLua.LuaSvr.getInstance().doFile("Items/" + m_LuaScript);
 
@@ -88,7 +107,8 @@ public class Item : MonoBehaviour {
 
         //load mesh
         m_Prefab = (string)_table["Mesh"];
-        GameObject _tmp = Resources.Load<GameObject>("Prefabs/"+m_Prefab);
+        //GameObject _tmp = Resources.Load<GameObject>("Prefabs/"+m_Prefab);
+        GameObject _tmp = Resources.Load<GameObject>("Meshes/" + m_Prefab);
         _tmp = Instantiate(_tmp);
         gameObject.AddComponent<MeshFilter>();
         gameObject.AddComponent<MeshRenderer>();
@@ -109,10 +129,15 @@ public class Item : MonoBehaviour {
                 m_Damage = System.Convert.ToSingle(_table["FirePower"]);
                 break;
             case ItemType.ITEM_MELEE:
+                m_Damage = System.Convert.ToSingle(_table["Damage"]);
+                m_AttackSpeed = System.Convert.ToSingle(_table["AttackSpeed"]);
                 break;
             case ItemType.ITEM_PARTS:
+                m_Damage = System.Convert.ToSingle(_table["Damage"]);
+                m_Projectile = (string)_table["Ammo"];
                 break;
             case ItemType.ITEM_ARMOR:
+                m_Armor = System.Convert.ToSingle(_table["Armor"]);
                 break;
             default:
                 break;

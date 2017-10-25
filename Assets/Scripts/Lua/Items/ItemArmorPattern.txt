@@ -1,8 +1,8 @@
 require "Assets.Scripts.Lua.Items.Header" --定义了一些常量
-
+--文件名为注册名
 --物品的属性表
 properties = {
-	Name =					"TestItem3";--物品名/注册名
+	Name =					"TestItem3";--物品名
 	Type =					ITEM_ARMOR;
 	Armor = 				0.0;
 	Weight = 				1.0; 

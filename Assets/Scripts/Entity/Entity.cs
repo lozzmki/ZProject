@@ -17,11 +17,11 @@ public class Entity : MonoBehaviour {
     public void MoveTowards(DSignal signal){
         Vector3 vDirection = (Vector3)signal._arg1;
         //Position
-        gameObject.transform.position += vDirection.normalized * gameObject.GetComponent<Attribute>().m_Properties[Attribute.SPEED].d_Value * Time.deltaTime;
+        gameObject.transform.position += vDirection.normalized * gameObject.GetComponent<EntityAttribute>().m_Properties[EntityAttribute.SPEED].d_Value * Time.deltaTime;
         //Rotation
         Vector3 _vTurn = gameObject.transform.InverseTransformDirection(vDirection);
         float _fAngle = Mathf.Atan2(_vTurn.x, _vTurn.z) * Mathf.Rad2Deg;
-        float _fRotation = 500.0f * Time.deltaTime;
+        float _fRotation = 3500.0f * Time.deltaTime;
 
         if (Mathf.Abs(_fAngle) < _fRotation)
             _fRotation = _fAngle;
