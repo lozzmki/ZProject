@@ -35,7 +35,7 @@ public struct DProperty
     public float d_fRatio;
     public float d_Value {
         get {
-            return d_fOrigin * (1.0f + d_fRatio) + d_fFixed;
+            return d_fOrigin * (1.0f + d_fRatio/100.0f) + d_fFixed;
         }
         set {
             d_fOrigin = value;
@@ -65,12 +65,12 @@ public class EntityAttribute : MonoBehaviour {
     public const int ARMOR = 4;
     public const int SPEED = 5;
 
-    [HideInInspector] public DProperty[] m_Properties;
+    public DProperty[] m_Properties;
     private float m_fBurden;
     private void Start()
     {
         m_Properties = new DProperty[6];
-        m_Properties[SPEED].d_Value = 15;//for test
+        m_Properties[SPEED].d_Value = 8;//for test
 
         gameObject.GetComponent<Transceiver>().AddResolver("Damage", Damage);
         //init from lua script

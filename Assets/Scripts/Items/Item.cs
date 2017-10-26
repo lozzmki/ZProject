@@ -13,11 +13,10 @@ public enum ItemType
 
 public enum ShotType
 {
-    SHOT_SINGLE,
+    SHOT_ARC,
     SHOT_AUTO,
     SHOT_SPREAD,
     SHOT_LASER,
-    SHOT_ARC
 }
 
 
@@ -40,8 +39,10 @@ public class Item : MonoBehaviour {
     public string m_Projectile = "";
     public DAttributeBonus[] m_BonusList;
     public Texture2D m_Icon;
+    public bool m_bPicked = false;
 
     private float m_fCooldown;
+    private float m_fFloat = 0.0f;
 
     [SLua.CustomLuaClass]
     public delegate void ItemUsage();
@@ -52,12 +53,7 @@ public class Item : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        //loading script
-        if (m_LuaScript == "")
-            return;
-        //init from lua script,the content path shall be modified,fin.
-//         if(!m_bIfLoaded)
-//             InitFromLuaFile();
+
 
     }
 
@@ -66,6 +62,16 @@ public class Item : MonoBehaviour {
     {
         if(m_fCooldown > 0.0f) {
             m_fCooldown -= Time.deltaTime;
+        }
+
+        //animation
+        if (!m_bPicked) {
+            m_fFloat += Time.deltaTime;
+            if (m_fFloat > Mathf.PI)
+                m_fFloat -= Mathf.PI * 2.0f;
+
+            gameObject.transform.position = new Vector3(0.0f, 0.5f*Mathf.Sin(m_fFloat) + 0.8f, 0.0f) + Vector3.Scale(gameObject.transform.position, new Vector3(1, 0, 1));
+            gameObject.transform.Rotate(Vector3.up, 80.0f * Time.deltaTime);
         }
     }
 
@@ -114,6 +120,7 @@ public class Item : MonoBehaviour {
         gameObject.AddComponent<MeshRenderer>();
         gameObject.GetComponent<MeshFilter>().mesh = _tmp.GetComponent<MeshFilter>().mesh;
         gameObject.GetComponent<Renderer>().material = _tmp.GetComponent<Renderer>().material;
+        gameObject.transform.localScale = _tmp.transform.localScale;
         GameObject.Destroy(_tmp);
 
         //attributes
@@ -156,5 +163,52 @@ public class Item : MonoBehaviour {
         }
         
         m_bIfLoaded = true;
+    }
+
+    private void MarkItem(bool val = true)
+    {
+        //change shader
+        if (val) {
+            gameObject.GetComponent<MeshRenderer>().material.shader = Shader.Find("ZShader/Edge");
+            gameObject.GetComponent<MeshRenderer>().material.SetColor("_OutlineCol", Color.green);
+        }
+        else
+            gameObject.GetComponent<MeshRenderer>().material.shader = Shader.Find("Standard");
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (m_bPicked || other.tag != "Player") return;
+        Inventory _inv = other.gameObject.GetComponent<Inventory>();
+        if(_inv != null) {
+            if(_inv.m_ItemForPick != null) {
+                _inv.m_ItemForPick.GetComponent<Item>().MarkItem(false);
+            }
+            _inv.m_ItemForPick = gameObject;
+            MarkItem();
+        }
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (m_bPicked || other.tag != "Player") return;
+        Inventory _inv = other.gameObject.GetComponent<Inventory>();
+        if (_inv != null) {
+            if (_inv.m_ItemForPick == null) {
+                _inv.m_ItemForPick = gameObject;
+                MarkItem();
+            }
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (m_bPicked || other.tag != "Player") return;
+        Inventory _inv = other.gameObject.GetComponent<Inventory>();
+        if (_inv != null) {
+            if(_inv.m_ItemForPick == gameObject) {
+                _inv.m_ItemForPick = null;
+                MarkItem(false);
+            }
+        }
     }
 }

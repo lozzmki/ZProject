@@ -2,22 +2,20 @@ require "Assets.Scripts.Lua.Items.Header" --定义了一些常量
 --文件名为注册名
 --物品的属性表
 properties = {
-	Name =					"TestItem";--物品名
-	Type =					ITEM_RANGE;
-	ShotType = 				SHOT_SPREAD;
-	AttackSpeed = 			2.0;
-	EnergyCost = 			1.0;
-	FirePower = 			15.0;
-	Weight = 				1.0;
-	Mesh = 					"Shell";--模型文件名
+	Name =					"CubeAmmo";--物品名
+	Type =					ITEM_PARTS;
+	Damage = 				20.0;
+	Weight = 				1.0; 
+	Mesh = 					"CubeAmmo";--物品模型文件名
+	Ammo = 					"TestProj";--子弹预制体名,
 	Bonus = {
 		{ATTR_MAX_HP, IS_RATIO, 10.0};--{属性，是否是比例，值}
 		{ATTR_MAX_EN, IS_FIXED, 20.0};
 		{ATTR_MELEE_POWER, IS_FIXED, 10.0};
-		{ATTR_RANGE_POWER, IS_RATIO, 10.0};
+		
 		--需要更多的值就按格式加新行
 	};
-	Description = 			"这是一把测试用的枪，能打子弹，用来砸人也很疼";
+	Description = 			"方块弹药";
 }
 
 --使用时调用，usr为使用者ID

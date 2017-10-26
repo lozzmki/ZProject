@@ -38,6 +38,7 @@ Shader "ZShader/Edge"
 		float2 offset = TransformViewToProjection(vnormal.xy);
 		o.pos.xy += offset * _OutlineFactor;
 		return o;
+
 	}
 
 	fixed4 frag(v2f i) : SV_Target

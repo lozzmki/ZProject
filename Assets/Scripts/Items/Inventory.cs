@@ -8,6 +8,8 @@ public class Inventory : MonoBehaviour {
     public GameObject[] m_cSlots;//0-2 for primary; 3-5 for parts; 6 for armor; 7 for melee;
     private int m_nPrimaryCursor = 0;
     private int m_nPartsCursor = 3;
+    public GameObject m_ItemForPick;
+
 	// Use this for initialization
 	void Start () {
         m_cSlots = new GameObject[8];
@@ -21,6 +23,7 @@ public class Inventory : MonoBehaviour {
 	void Update () {
 		//make the equipped one showup
 
+        
 	}
 
     private void EquipItem(GameObject itemObject)
@@ -39,35 +42,44 @@ public class Inventory : MonoBehaviour {
     {
         //exile it...
         itemObject.transform.position += new Vector3(10000.0f, 0.0f, 0.0f);
-//         itemObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-//         itemObject.GetComponent<Rigidbody>().useGravity = false;
+        itemObject.GetComponent<Item>().m_bPicked = true;
+
     }
     private void MoveBack(GameObject itemObject, Vector3 postion)
     {
         //return it...
         itemObject.transform.position = postion;
-//         itemObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-//         itemObject.GetComponent<Rigidbody>().useGravity = true;
+        itemObject.GetComponent<Item>().m_bPicked = false;
+
     }
 
     public void PickUpItem(DSignal signal)
     {
-        GameObject itemObject = (GameObject)signal._arg1;
+        GameObject itemObject = m_ItemForPick;
         Item item = itemObject.GetComponent<Item>();
+        bool _ifFull = true;
+        if (item.m_bPicked) {
+            //already picked
+            m_ItemForPick = null;
+            return;
+        }
         if(item != null) {//check if the object is an Item.
             switch (item.m_Type) {
                 case ItemType.ITEM_PRIMARY:
                     for(int _i=0; _i<3; _i++) {
                         if(m_cSlots[_i] == null) {
                             m_cSlots[_i] = itemObject;
+                            _ifFull = false;
                             break;
                         }
                     }
-                    //full, swap it with the one in hand.
-                    MoveBack(m_cSlots[m_nPrimaryCursor], itemObject.transform.position);
-
-                    //remove bonuses
-                    UnEquipItem(m_cSlots[m_nPrimaryCursor]);
+                    if (_ifFull) {
+                        //full, swap it with the one in hand.
+                        MoveBack(m_cSlots[m_nPrimaryCursor], itemObject.transform.position);
+                        m_cSlots[m_nPrimaryCursor] = itemObject;
+                        //remove bonuses
+                        UnEquipItem(m_cSlots[m_nPrimaryCursor]);
+                    }
 
                     break;
                 case ItemType.ITEM_MELEE:
@@ -76,8 +88,8 @@ public class Inventory : MonoBehaviour {
                         m_cSlots[7] = itemObject;
                     }
                     else {
-                        m_cSlots[7].transform.position = itemObject.transform.position;
                         MoveBack(m_cSlots[7], itemObject.transform.position);
+                        m_cSlots[7] = itemObject;
                         UnEquipItem(m_cSlots[7]);
                     }
                         
@@ -87,13 +99,17 @@ public class Inventory : MonoBehaviour {
                     for (int _i = 3; _i < 6; _i++) {
                         if (m_cSlots[_i] == null) {
                             m_cSlots[_i] = itemObject;
+                            _ifFull = false;
                             break;
                         }
                     }
-                    //full, swap it with the one in hand.
-                    MoveBack(m_cSlots[m_nPartsCursor], itemObject.transform.position);
-                    //remove bonuses
-                    UnEquipItem(m_cSlots[m_nPartsCursor]);
+                    if (_ifFull) {
+                        //full, swap it with the one in hand.
+                        MoveBack(m_cSlots[m_nPartsCursor], itemObject.transform.position);
+                        m_cSlots[m_nPartsCursor] = itemObject;
+                        //remove bonuses
+                        UnEquipItem(m_cSlots[m_nPartsCursor]);
+                    }
 
                     break;
                 case ItemType.ITEM_ARMOR:
@@ -101,8 +117,8 @@ public class Inventory : MonoBehaviour {
                         m_cSlots[6] = itemObject;
                     }
                     else {
-                        m_cSlots[6].transform.position = itemObject.transform.position;
                         MoveBack(m_cSlots[6], itemObject.transform.position);
+                        m_cSlots[6] = itemObject;
                         UnEquipItem(m_cSlots[6]);
                     }
                     break;
@@ -165,6 +181,7 @@ public class Inventory : MonoBehaviour {
     //todo
     public void RangeFire(DSignal signal)
     {
+
         //merge primary with parts
         GameObject _ammo;
         if(m_cSlots[m_nPrimaryCursor] != null) {
@@ -179,24 +196,51 @@ public class Inventory : MonoBehaviour {
                 _ammo = Resources.Load<GameObject>("Prefabs/Projectiles/" + _ammoName);
                 if(_ammo == null) {
                     Debug.Log("Ammo:Model is null");
-                    _ammo = Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/Default"),/*todo*/gameObject.transform.position, Random.rotation);
+                    _ammo = Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/Default"),/*todo*/gameObject.transform.position, Quaternion.AngleAxis(0.0f, Vector3.up));
                 }
                 else {
-                    _ammo = Instantiate(_ammo,/*todo*/gameObject.transform.position, Random.rotation);
+                    _ammo = Instantiate(_ammo,/*todo*/gameObject.transform.position, Quaternion.AngleAxis(0.0f, Vector3.up));
                 }
 
-                _ammo.transform.forward = gameObject.transform.forward;
                 _ammo.GetComponent<Projectile>().m_Damage = m_cSlots[m_nPartsCursor].GetComponent<Item>().m_Damage;
                 
             }
             else {
                 //no ammo, use default
-                _ammo = Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/Default"),/*todo*/gameObject.transform.position, Random.rotation);
+                _ammo = Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/Default"),/*todo*/gameObject.transform.position, Quaternion.AngleAxis(0.0f, Vector3.up));
+
             }
 
+            //temporary, todo
+            _ammo.transform.forward = gameObject.transform.forward;
             _ammo.GetComponent<Projectile>().m_Master = gameObject;
-            _ammo.GetComponent<Projectile>().m_Damage += m_cSlots[m_nPrimaryCursor].GetComponent<Item>().m_Damage;
+            _ammo.GetComponent<Projectile>().m_Damage += (m_cSlots[m_nPrimaryCursor].GetComponent<Item>().m_Damage + gameObject.GetComponent<EntityAttribute>().m_Properties[EntityAttribute.RANGE_POWER].d_Value);
             _ammo.GetComponent<Projectile>().m_Speed = 30.0f;
+
+            GameObject _extra;
+            switch (m_cSlots[m_nPrimaryCursor].GetComponent<Item>().m_ShotType) {
+                
+                case ShotType.SHOT_AUTO:
+                    //no more
+                    break;
+                case ShotType.SHOT_SPREAD:
+                    //four more
+                    for(int _i = 0; _i<6; _i++) {
+                        _extra = Instantiate(_ammo);
+                        _extra.transform.Rotate(0, 20.0f * (Random.value - 0.5f), 0);
+                    }
+                    break;
+
+                    //undefined
+//                 case ShotType.SHOT_ARC:
+//                     break;
+//                 case ShotType.SHOT_LASER:
+//                     break;
+                default:
+                    break;
+            }
+
+            _ammo.transform.Rotate(0, 10.0f * (Random.value - 0.5f), 0);
         }
     }
 }

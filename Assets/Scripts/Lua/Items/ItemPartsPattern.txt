@@ -12,7 +12,7 @@ properties = {
 		{ATTR_MAX_HP, IS_RATIO, 10.0};--{属性，是否是比例，值}
 		{ATTR_MAX_EN, IS_FIXED, 20.0};
 		{ATTR_MELEE_POWER, IS_FIXED, 10.0};
-		
+		{ATTR_RANGE_POWER, IS_FIXED, 10.0};
 		--需要更多的值就按格式加新行
 	};
 	Description = 			"这是一种测试用的弹药，然而没装火药";

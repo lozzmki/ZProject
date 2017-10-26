@@ -24,15 +24,29 @@ public class luatest : MonoBehaviour {
 
         //Debug.Log(Resources.Load("Meshes/Shell"));
 
-        GameObject _item = ObjectDictionary.GetItemDic().CreateObject("ItemRangePattern",
-                 gameObject.transform.position + new Vector3(0.0f, 5.0f * Random.value, 0.0f),
-                 Random.rotation);
-        Transceiver.SendSignal(new DSignal(null, gameObject, "Pickup", _item));
+        ObjectDictionary.GetItemDic().CreateObject("ItemRangePattern",
+                 gameObject.transform.position + new Vector3(5.0f * Random.value, 0.0f, 5.0f * Random.value),
+                 Quaternion.AngleAxis(0,Vector3.up));
 
-        _item = ObjectDictionary.GetItemDic().CreateObject("ItemPartsPattern",
-                 gameObject.transform.position + new Vector3(0.0f, 5.0f * Random.value, 0.0f),
-                 Random.rotation);
-        Transceiver.SendSignal(new DSignal(null, gameObject, "Pickup", _item));
+        ObjectDictionary.GetItemDic().CreateObject("ItemPartsPattern",
+                 gameObject.transform.position + new Vector3(5.0f * Random.value, 0.0f, 5.0f * Random.value),
+                 Quaternion.AngleAxis(0,Vector3.up));
+        ObjectDictionary.GetItemDic().CreateObject("CubeAmmo",
+                 gameObject.transform.position + new Vector3(5.0f * Random.value, 0.0f, 5.0f * Random.value),
+                 Quaternion.AngleAxis(0,Vector3.up));
+        ObjectDictionary.GetItemDic().CreateObject("ItemPartsPattern",
+                 gameObject.transform.position + new Vector3(5.0f * Random.value, 0.0f, 5.0f * Random.value),
+                 Quaternion.AngleAxis(0,Vector3.up));
+        ObjectDictionary.GetItemDic().CreateObject("CubeAmmo",
+                 gameObject.transform.position + new Vector3(5.0f * Random.value, 0.0f, 5.0f * Random.value),
+                 Quaternion.AngleAxis(0,Vector3.up));
+        ObjectDictionary.GetItemDic().CreateObject("ItemPartsPattern",
+                 gameObject.transform.position + new Vector3(5.0f * Random.value, 0.0f, 5.0f * Random.value),
+                 Quaternion.AngleAxis(0,Vector3.up));
+        ObjectDictionary.GetItemDic().CreateObject("CubeAmmo",
+                 gameObject.transform.position + new Vector3(5.0f * Random.value, 0.0f, 5.0f * Random.value),
+                 Quaternion.AngleAxis(0,Vector3.up));
+
     }
 
     // Update is called once per frame
@@ -41,13 +55,13 @@ public class luatest : MonoBehaviour {
             _p -= 5.0f;
             //             GameObject.Instantiate(ObjectManager.getInstance().getObject(_dic),
             //                 gameObject.transform.position + new Vector3(0.0f, 5.0f * Random.value, 0.0f),
-            //                 Random.rotation);
+            //                 Quaternion.AngleAxis(0,Vector3.up));
             //             GameObject.Instantiate(ObjectManager.getInstance().getObject(_dic2),
             //                 gameObject.transform.position + new Vector3(0.0f, 5.0f * Random.value, 0.0f),
-            //                 Random.rotation);
+            //                 Quaternion.AngleAxis(0,Vector3.up));
 //             ObjectDictionary.GetItemDic().CreateObject("ItemArmorPattern",
 //                 gameObject.transform.position + new Vector3(0.0f, 5.0f * Random.value, 0.0f),
-//                 Random.rotation);
+//                 Quaternion.AngleAxis(0,Vector3.up));
         }
         else
             _p += Time.deltaTime;

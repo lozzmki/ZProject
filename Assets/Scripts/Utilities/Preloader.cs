@@ -25,10 +25,14 @@ public class Preloader : MonoBehaviour {
         for (int i = 0; i < _files.Length; i++) {
             string _sName = _files[i].Name.Split('.')[0];
             GameObject obj = new GameObject("Item");
+            obj.AddComponent<SphereCollider>();
+            obj.GetComponent<SphereCollider>().isTrigger = true;
+            obj.GetComponent<SphereCollider>().radius = 1.0f;
             obj.AddComponent<Item>();
             obj.GetComponent<Item>().m_LuaScript = _sName;
             obj.GetComponent<Item>().InitFromLuaFile();
             ObjectDictionary.GetItemDic().AddObject(_sName, obj);
+            obj.transform.position += new Vector3(0, 0, 10000);
 
         }
 
