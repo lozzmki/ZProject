@@ -50,7 +50,10 @@ public class Transceiver : MonoBehaviour
     {
         if (!ms_bIsOnlineMode) {
             //single mode, send to the object directly
-            signal._receiver.GetComponent<Transceiver>().OnReceiveSignal(signal);
+            if (signal._receiver)
+            {
+                signal._receiver.GetComponent<Transceiver>().OnReceiveSignal(signal);
+            }
         }
         else {
             //online mode, send it to the server

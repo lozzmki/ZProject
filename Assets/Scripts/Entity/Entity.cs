@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Entity : MonoBehaviour {
+public class Entity : Base_AI {
 	// Use this for initialization
 	void Start () {
         gameObject.GetComponent<Transceiver>().AddResolver("Move",MoveTowards);
+        gameObject.GetComponent<Transceiver>().AddResolver("DamageMove", DamageMove);
 	}
 	
 	// Update is called once per frame
@@ -32,4 +33,10 @@ public class Entity : MonoBehaviour {
         gameObject.transform.forward = vDirection;
    }
 
- }
+    public void DamageMove(DSignal signal)
+    {
+        Vector3 worldMoveDir = (Vector3)signal._arg1;
+        TurnRotation(worldMoveDir, true);
+    }
+
+}

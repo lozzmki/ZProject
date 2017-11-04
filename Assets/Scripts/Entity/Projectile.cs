@@ -25,10 +25,10 @@ public class Projectile : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject != m_Master && other.gameObject.GetComponent<Entity>() != null) {
-            Destroy(gameObject);
+        if(other.gameObject.tag == "Enemy") {          
             //damage
             Transceiver.SendSignal(new DSignal(m_Master, other.gameObject, "Damage", m_Damage));
+            Destroy(gameObject);
         }
     }
 }
