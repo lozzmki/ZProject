@@ -1,19 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Base_AI : MonoBehaviour {
-
-    #region public
-    [Range(0, 360)]
-    public float m_MinTurnSpeed = 90f;
-    [Range(0, 720)]
-    public float m_MaxTurnSpeed = 360f;
-    #endregion
+public class MoveObj : MonoBehaviour {
 
     #region temporary
     protected bool m_bOnGround;
-    protected bool m_bStraightGo = false;
-    protected bool m_bHaveToWalkDest = true;
     protected float m_fRotateAngles = 0f;
     protected float m_fMoveDis;
     protected Vector3 m_WorldMoveDir;
@@ -26,7 +17,7 @@ public class Base_AI : MonoBehaviour {
     #endregion
 
     //===============================================
-    // Desc:世界XZ移动方向转化为局部XYZ移动方向
+    // Desc:世界XYZ移动方向转化为局部XYZ移动方向
     //===============================================
     public void WorldToLocalDir(Vector3 dest)
     {
@@ -43,20 +34,12 @@ public class Base_AI : MonoBehaviour {
     }
 
     //=========================================
-    // Desc:弧度转化为角度
-    //=========================================
-    public float radToDegree(float radian)
-    {
-        return radian / (2 * Mathf.PI) * 360;
-    }
-
-    //=========================================
     // Desc:计算旋转角度
     //=========================================
     public void RotateAnglesCompute()
     {
         m_fRotateAngles = Mathf.Atan2(m_LocalMoveDir.x, m_LocalMoveDir.z);
-        m_fRotateAngles = radToDegree(m_fRotateAngles);
+        m_fRotateAngles = m_fRotateAngles * Mathf.Rad2Deg;
     }
 
     //==========================================================
@@ -65,7 +48,7 @@ public class Base_AI : MonoBehaviour {
     public bool TurnRotation(Vector3 local_MoveDir, bool immediately = false, float minTurnSpeed = 90, float maxTurnSpeed = 360)
     {
         m_fRotateAngles = Mathf.Atan2(local_MoveDir.x, local_MoveDir.z);
-        m_fRotateAngles = radToDegree(m_fRotateAngles);
+        m_fRotateAngles = m_fRotateAngles * Mathf.Rad2Deg;
         bool bTurnFinish = false;
         if (immediately || Mathf.Abs(m_fRotateAngles) < 3)
         {
@@ -105,19 +88,6 @@ public class Base_AI : MonoBehaviour {
             m_bOnGround = false;
         }
         return m_bOnGround;
-    }
-
-    //==================================
-    // Desc:搜索敌人
-    //==================================
-    public bool SearchEnemy(Vector3 enemyPos, float searchRadius)
-    {
-        //计算移动方向和距离
-        WorldToLocalDir(enemyPos);
-        if (m_fMoveDis <= searchRadius)
-            return true;
-        else
-            return false;
     }
 
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Entity : Base_AI {
+public class Entity : MoveObj {
 	// Use this for initialization
 	void Start () {
         gameObject.GetComponent<Transceiver>().AddResolver("Move",MoveTowards);

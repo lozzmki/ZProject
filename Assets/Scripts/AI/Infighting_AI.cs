@@ -14,7 +14,7 @@ public class Infighting_AI : Land_AI
     public ParticleSystem m_HitEffect;
     public ParticleSystem m_DeadEffect;
     //public GameObject m_DropPrefab;
-    public float m_fBackMoveSpeed = 3f;
+    public float m_fBackMoveForce = 3f;
     public float m_fBackMoveLimitTime = 0.3f;
     public float m_fDieSinkSpeed = 1f;
     public float m_fDieSinkLimitTime = 1f;
@@ -76,7 +76,7 @@ public class Infighting_AI : Land_AI
         float damage = (float)signal._arg1;
         m_HP -= damage;
         m_Animator.SetTrigger("BeHitTrigger");
-        AddBackMovePower();
+        AddBackMovePower(true, m_fBackMoveForce);
         m_HitEffect.Play();
 
         //【死亡】
@@ -127,10 +127,10 @@ public class Infighting_AI : Land_AI
             }
 
             //【如果被攻击了向后退】
-            if (m_InBackMoving)
+            if (m_bInBackMoving)
             {
-                bool backMoveFinish = BackMove(m_fBackMoveLimitTime, m_fBackMoveSpeed);
-                m_InBackMoving = !backMoveFinish;
+                bool backMoveFinish = BackMove(m_fBackMoveLimitTime);
+                m_bInBackMoving = !backMoveFinish;
             }
               
         }
@@ -260,12 +260,6 @@ public class Infighting_AI : Land_AI
             }           
         }
    
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        //若死亡不进行检测
-        if (m_bDead) return;
     }
     
 }

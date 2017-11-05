@@ -2,7 +2,7 @@
 using System.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
-public class LandAI_Hit : MonoBehaviour
+public class AI_Hit : MonoBehaviour
 {
     #region public
     //public GameObject sphere;
