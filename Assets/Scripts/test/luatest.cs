@@ -47,6 +47,61 @@ public class luatest : MonoBehaviour {
                  gameObject.transform.position + new Vector3(5.0f * Random.value, 0.0f, 5.0f * Random.value),
                  Quaternion.AngleAxis(0,Vector3.up));
 
+
+        //map test
+        DCell W = new DCell(0, false, true, false);
+        DCell R = new DCell();
+        DCell D = new DCell(0, true, false);
+
+        DRoomPreset _room1 = new DRoomPreset();
+        _room1.d_Size = new DSizeN(7, 7);
+        _room1.d_Data = new DCell[]
+        {
+            W,W,W,D,W,W,W,
+            W,R,R,R,R,R,W,
+            W,R,R,R,R,R,W,
+            D,R,R,R,R,R,D,
+            W,R,R,R,R,R,W,
+            W,R,R,R,R,R,W,
+            W,W,W,D,W,W,W,
+        };
+
+        DRoomPreset _room2 = new DRoomPreset();
+        _room2.d_Size = new DSizeN(5, 13);
+        _room2.d_Data = new DCell[]
+        {
+            W,W,W,D,W,
+            W,R,R,R,W,
+            W,R,R,R,W,
+            W,R,R,R,W,
+            W,R,R,R,W,
+            D,R,R,R,W,
+            W,R,R,R,D,
+            W,R,R,R,W,
+            W,R,R,R,W,
+            W,R,R,R,W,
+            W,R,R,R,W,
+            D,R,R,R,W,
+            W,W,D,W,W,
+        };
+
+        DRoomPreset _room3 = new DRoomPreset();
+        _room3.d_Size = new DSizeN(13, 5);
+        _room3.d_Data = new DCell[]
+        {
+            W,W,D,W,W,W,W,W,D,W,W,W,W,
+            W,R,R,R,R,R,R,R,R,R,R,R,W,
+            W,R,R,R,R,R,R,R,R,R,R,R,W,
+            D,R,R,R,R,R,R,R,R,R,R,R,D,
+            W,W,W,W,W,D,W,W,W,W,W,D,W,
+        };
+
+        RoomPresetsManager.GetInstance().AddPreset(_room1);
+        RoomPresetsManager.GetInstance().AddPreset(_room2);
+        RoomPresetsManager.GetInstance().AddPreset(_room3);
+
+        Stage _stage = MapGenerator.NewMap(100);
+        _stage.CreateStage();
     }
 
     // Update is called once per frame

@@ -30,13 +30,13 @@ public class Inventory : MonoBehaviour {
     {
         Item item = itemObject.GetComponent<Item>();
         for (int _i = 0; _i < item.m_BonusList.Length; _i++)
-            gameObject.GetComponent<EntityAttribute>().ApplyBonus(item.m_BonusList[_i]);
+            gameObject.GetComponent<Entity>().ApplyBonus(item.m_BonusList[_i]);
     }
     private void UnEquipItem(GameObject itemObject)
     {
         Item item = itemObject.GetComponent<Item>();
         for (int _i = 0; _i < item.m_BonusList.Length; _i++)
-            gameObject.GetComponent<EntityAttribute>().RemoveBonus(item.m_BonusList[_i]);
+            gameObject.GetComponent<Entity>().RemoveBonus(item.m_BonusList[_i]);
     }
     private void MoveAway(GameObject itemObject)
     {
@@ -178,7 +178,7 @@ public class Inventory : MonoBehaviour {
         }
     }
 
-    //todo
+    //temp,todo
     public void RangeFire(DSignal signal)
     {
 
@@ -214,7 +214,7 @@ public class Inventory : MonoBehaviour {
             //temporary, todo
             _ammo.transform.forward = gameObject.transform.forward;
             _ammo.GetComponent<Projectile>().m_Master = gameObject;
-            _ammo.GetComponent<Projectile>().m_Damage += (m_cSlots[m_nPrimaryCursor].GetComponent<Item>().m_Damage + gameObject.GetComponent<EntityAttribute>().m_Properties[EntityAttribute.RANGE_POWER].d_Value);
+            _ammo.GetComponent<Projectile>().m_Damage += (m_cSlots[m_nPrimaryCursor].GetComponent<Item>().m_Damage + gameObject.GetComponent<Entity>().m_Properties[Entity.RANGE_POWER].d_Value);
             _ammo.GetComponent<Projectile>().m_Speed = 30.0f;
 
             GameObject _extra;
