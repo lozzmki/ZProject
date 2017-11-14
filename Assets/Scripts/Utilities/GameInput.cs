@@ -41,7 +41,7 @@ public class GameInput : MonoBehaviour {
         float _fHor = Input.GetAxis("Horizontal");
         float _fVer = Input.GetAxis("Vertical");
         if (Mathf.Abs(_fHor) < 1e-4 && Mathf.Abs(_fVer) < 1e-4) {
-
+            Transceiver.SendSignal(new DSignal(gameObject, m_Player, "StopMoving"));
         }
         else {
             Vector3 _vDirection;
@@ -52,20 +52,15 @@ public class GameInput : MonoBehaviour {
             Transceiver.SendSignal(new DSignal(gameObject, m_Player, "Move", _vDirection));
         }
         //Fire
-        bool _bRangeFire = Input.GetKeyDown(KeyCode.Joystick1Button0);
-
-        if (_bRangeFire) {
+        if (Input.GetKeyDown(KeyCode.Joystick1Button0)) {
             if (m_Player.GetComponent<Inventory>().m_ItemForPick != null) {
                 Transceiver.SendSignal(new DSignal(gameObject, m_Player, "Pickup"));
             }
-            Transceiver.SendSignal(new DSignal(gameObject, m_Player, "RangeFire"));
+            Transceiver.SendSignal(new DSignal(gameObject, m_Player, "Fire"));
         }
-        else {
-            if (Input.GetKey(KeyCode.Joystick1Button0)) {
-                Transceiver.SendSignal(new DSignal(gameObject, m_Player, "RangeFire"));
-            }
+        else if (Input.GetKeyUp(KeyCode.Joystick1Button0)) {
+            Transceiver.SendSignal(new DSignal(gameObject, m_Player, "CeaseFire"));
         }
-
         
     }
 }

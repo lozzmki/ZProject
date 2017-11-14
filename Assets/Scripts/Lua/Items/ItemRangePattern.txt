@@ -3,8 +3,8 @@ require "Assets.Scripts.Lua.Items.Header" --定义了一些常量
 --物品的属性表
 properties = {
 	Name =					"TestItem";--物品名
-	Type =					ITEM_RANGE;
-	ShotType = 				SHOT_SPREAD;
+	Type =					ITEM_WEAPON;
+	ShotType = 				WEAPON_SPREAD;
 	AttackSpeed = 			2.0;
 	EnergyCost = 			1.0;
 	FirePower = 			15.0;

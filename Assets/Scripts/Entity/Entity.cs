@@ -76,16 +76,23 @@ public class Entity : MonoBehaviour {
 
     public DProperty[] m_Properties;
     private float m_fBurden;
+
+    private Animator m_StateMachine;
     // Use this for initialization
     void Start () {
         m_Properties = new DProperty[6];
         m_Properties[SPEED].d_Value = 8;//for test
 
+        m_StateMachine = gameObject.GetComponent<Animator>();
+
         gameObject.GetComponent<Transceiver>().AddResolver("Move", MoveTowards);
+        gameObject.GetComponent<Transceiver>().AddResolver("StopMoving", StopMoving);
         gameObject.GetComponent<Transceiver>().AddResolver("Damage", Damage);
+        gameObject.GetComponent<Transceiver>().AddResolver("Fire", Fire);
+        gameObject.GetComponent<Transceiver>().AddResolver("CeaseFire", CeaseFire);
         //init from lua script
-        
-	}
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -94,8 +101,8 @@ public class Entity : MonoBehaviour {
 
     public void MoveTowards(DSignal signal){
         Vector3 vDirection = (Vector3)signal._arg1;
-        //Position
-        gameObject.transform.position += vDirection.normalized * m_Properties[SPEED].d_Value * Time.deltaTime;
+        //Position,move to FSM
+        //gameObject.transform.position += vDirection.normalized * m_Properties[SPEED].d_Value * Time.deltaTime;
         //Rotation
         //         Vector3 _vTurn = gameObject.transform.InverseTransformDirection(vDirection);
         //         float _fAngle = Mathf.Atan2(_vTurn.x, _vTurn.z) * Mathf.Rad2Deg;
@@ -109,7 +116,32 @@ public class Entity : MonoBehaviour {
         //         }
         //         gameObject.transform.Rotate(0.0f, _fRotation, 0.0f);
         gameObject.transform.forward = vDirection;
-        
+        m_StateMachine.SetBool("move", true);
+    }
+
+    public void StopMoving(DSignal signal)
+    {
+        m_StateMachine.SetBool("move", false);
+    }
+
+    public void Fire(DSignal signal)
+    {
+        Item _weapon = gameObject.GetComponent<Inventory>().GetWeapon();
+        if (_weapon == null)
+            return;
+
+        if(_weapon.m_WeaponType == WeaponType.WEAPON_MELEE) {
+            m_StateMachine.SetBool("melee", true);
+        }
+        else {
+            m_StateMachine.SetBool("range", true);
+        }
+    }
+
+    public void CeaseFire(DSignal signal)
+    {
+        m_StateMachine.SetBool("range", false);
+        m_StateMachine.SetBool("melee", false);
     }
 
     public void ApplyBonus(DAttributeBonus dBonus)

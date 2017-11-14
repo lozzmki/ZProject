@@ -5,18 +5,18 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour {
 
-    public GameObject[] m_cSlots;//0-2 for primary; 3-5 for parts; 6 for armor; 7 for melee;
+    public GameObject[] m_cSlots;//0-2 for primary; 3-5 for parts; 6 for armor;
     private int m_nPrimaryCursor = 0;
     private int m_nPartsCursor = 3;
     public GameObject m_ItemForPick;
 
 	// Use this for initialization
 	void Start () {
-        m_cSlots = new GameObject[8];
+        m_cSlots = new GameObject[7];
         gameObject.GetComponent<Transceiver>().AddResolver("Pickup", PickUpItem);
         gameObject.GetComponent<Transceiver>().AddResolver("ChangePrimary", ChangePrimary);
         gameObject.GetComponent<Transceiver>().AddResolver("ChangeParts", ChangeParts);
-        gameObject.GetComponent<Transceiver>().AddResolver("RangeFire", RangeFire);
+        
     }
 	
 	// Update is called once per frame
@@ -65,7 +65,7 @@ public class Inventory : MonoBehaviour {
         }
         if(item != null) {//check if the object is an Item.
             switch (item.m_Type) {
-                case ItemType.ITEM_PRIMARY:
+                case ItemType.ITEM_WEAPON:
                     for(int _i=0; _i<3; _i++) {
                         if(m_cSlots[_i] == null) {
                             m_cSlots[_i] = itemObject;
@@ -80,19 +80,6 @@ public class Inventory : MonoBehaviour {
                         //remove bonuses
                         UnEquipItem(m_cSlots[m_nPrimaryCursor]);
                     }
-
-                    break;
-                case ItemType.ITEM_MELEE:
-
-                    if(m_cSlots[7] == null) {
-                        m_cSlots[7] = itemObject;
-                    }
-                    else {
-                        MoveBack(m_cSlots[7], itemObject.transform.position);
-                        m_cSlots[7] = itemObject;
-                        UnEquipItem(m_cSlots[7]);
-                    }
-                        
 
                     break;
                 case ItemType.ITEM_PARTS:
@@ -178,69 +165,21 @@ public class Inventory : MonoBehaviour {
         }
     }
 
-    //temp,todo
-    public void RangeFire(DSignal signal)
+    public Item GetWeapon()
     {
+        GameObject _obj = m_cSlots[m_nPrimaryCursor];
+        if (_obj == null)
+            return null;
+        else
+            return _obj.GetComponent<Item>();
+    }
 
-        //merge primary with parts
-        GameObject _ammo;
-        if(m_cSlots[m_nPrimaryCursor] != null) {
-            //check cooldown
-            if (!m_cSlots[m_nPrimaryCursor].GetComponent<Item>().IfCooled)
-                return;
-            else
-                m_cSlots[m_nPrimaryCursor].GetComponent<Item>().Attack();
-
-            if (m_cSlots[m_nPartsCursor]) {
-                string _ammoName = m_cSlots[m_nPartsCursor].GetComponent<Item>().m_Projectile;
-                _ammo = Resources.Load<GameObject>("Prefabs/Projectiles/" + _ammoName);
-                if(_ammo == null) {
-                    Debug.Log("Ammo:Model is null");
-                    _ammo = Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/Default"),/*todo*/gameObject.transform.position, Quaternion.AngleAxis(0.0f, Vector3.up));
-                }
-                else {
-                    _ammo = Instantiate(_ammo,/*todo*/gameObject.transform.position, Quaternion.AngleAxis(0.0f, Vector3.up));
-                }
-
-                _ammo.GetComponent<Projectile>().m_Damage = m_cSlots[m_nPartsCursor].GetComponent<Item>().m_Damage;
-                
-            }
-            else {
-                //no ammo, use default
-                _ammo = Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/Default"),/*todo*/gameObject.transform.position, Quaternion.AngleAxis(0.0f, Vector3.up));
-
-            }
-
-            //temporary, todo
-            _ammo.transform.forward = gameObject.transform.forward;
-            _ammo.GetComponent<Projectile>().m_Master = gameObject;
-            _ammo.GetComponent<Projectile>().m_Damage += (m_cSlots[m_nPrimaryCursor].GetComponent<Item>().m_Damage + gameObject.GetComponent<Entity>().m_Properties[Entity.RANGE_POWER].d_Value);
-            _ammo.GetComponent<Projectile>().m_Speed = 30.0f;
-
-            GameObject _extra;
-            switch (m_cSlots[m_nPrimaryCursor].GetComponent<Item>().m_ShotType) {
-                
-                case ShotType.SHOT_AUTO:
-                    //no more
-                    break;
-                case ShotType.SHOT_SPREAD:
-                    //four more
-                    for(int _i = 0; _i<6; _i++) {
-                        _extra = Instantiate(_ammo);
-                        _extra.transform.Rotate(0, 20.0f * (Random.value - 0.5f), 0);
-                    }
-                    break;
-
-                    //undefined
-//                 case ShotType.SHOT_ARC:
-//                     break;
-//                 case ShotType.SHOT_LASER:
-//                     break;
-                default:
-                    break;
-            }
-
-            _ammo.transform.Rotate(0, 10.0f * (Random.value - 0.5f), 0);
-        }
+    public Item GetParts()
+    {
+        GameObject _obj = m_cSlots[m_nPartsCursor];
+        if (_obj == null)
+            return null;
+        else
+            return _obj.GetComponent<Item>();
     }
 }

@@ -4,19 +4,19 @@ using UnityEngine;
 
 public enum ItemType
 {
-    ITEM_PRIMARY,
-    ITEM_MELEE,
+    ITEM_WEAPON,
     ITEM_PARTS,
     ITEM_ARMOR,
     ITEM_SUPPLY,
 }
 
-public enum ShotType
+public enum WeaponType
 {
-    SHOT_ARC,
-    SHOT_AUTO,
-    SHOT_SPREAD,
-    SHOT_LASER,
+    WEAPON_ARC,
+    WEAPON_AUTO,
+    WEAPON_SPREAD,
+    WEAPON_LASER,
+    WEAPON_MELEE,
 }
 
 
@@ -28,7 +28,7 @@ public class Item : MonoBehaviour {
     public string m_ItemName = "Default Item Name";
     public string m_Description = "No Description";
     public ItemType m_Type;
-    public ShotType m_ShotType;
+    public WeaponType m_WeaponType;
     public float m_AttackSpeed;
     public float m_EnergyCost;
     public float m_Damage;
@@ -129,15 +129,11 @@ public class Item : MonoBehaviour {
 
         m_Type = (ItemType)System.Convert.ToInt32(_table["Type"]);
         switch (m_Type) {
-            case ItemType.ITEM_PRIMARY:
-                m_ShotType = (ShotType)System.Convert.ToInt32(_table["ShotType"]);
+            case ItemType.ITEM_WEAPON:
+                m_WeaponType = (WeaponType)System.Convert.ToInt32(_table["ShotType"]);
                 m_AttackSpeed = System.Convert.ToSingle(_table["AttackSpeed"]);
                 m_EnergyCost = System.Convert.ToSingle(_table["EnergyCost"]);
                 m_Damage = System.Convert.ToSingle(_table["FirePower"]);
-                break;
-            case ItemType.ITEM_MELEE:
-                m_Damage = System.Convert.ToSingle(_table["Damage"]);
-                m_AttackSpeed = System.Convert.ToSingle(_table["AttackSpeed"]);
                 break;
             case ItemType.ITEM_PARTS:
                 m_Damage = System.Convert.ToSingle(_table["Damage"]);
