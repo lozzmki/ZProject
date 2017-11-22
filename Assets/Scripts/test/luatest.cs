@@ -6,7 +6,7 @@ using UnityEngine;
 public class luatest : MonoBehaviour {
     float _p = 0.0f;
 
-    
+    public GameObject _testAI;
 
 	// Use this for initialization
 	void Start () {
@@ -24,9 +24,13 @@ public class luatest : MonoBehaviour {
 
         //Debug.Log(Resources.Load("Meshes/Shell"));
 
-        ObjectDictionary.GetItemDic().CreateObject("ItemRangePattern",
+        GameObject _obj = ObjectDictionary.GetItemDic().CreateObject("ItemRangePattern",
                  gameObject.transform.position + new Vector3(5.0f * Random.value, 0.0f, 5.0f * Random.value),
                  Quaternion.AngleAxis(0,Vector3.up));
+
+        ObjectDictionary.GetItemDic().CreateObject("ItemRangePattern",
+                 gameObject.transform.position + new Vector3(5.0f * Random.value, 0.0f, 5.0f * Random.value),
+                 Quaternion.AngleAxis(0, Vector3.up));
 
         ObjectDictionary.GetItemDic().CreateObject("ItemPartsPattern",
                  gameObject.transform.position + new Vector3(5.0f * Random.value, 0.0f, 5.0f * Random.value),

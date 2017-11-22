@@ -94,11 +94,6 @@ public class Entity : MonoBehaviour {
 
     }
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
     public void MoveTowards(DSignal signal){
         Vector3 vDirection = (Vector3)signal._arg1;
         //Position,move to FSM

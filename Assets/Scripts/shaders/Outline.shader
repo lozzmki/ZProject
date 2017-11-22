@@ -35,7 +35,7 @@ Shader "ZShader/Edge"
 
 		o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
 		float3 vnormal = mul((float3x3)UNITY_MATRIX_IT_MV, v.normal);
-		float2 offset = TransformViewToProjection(vnormal.xy);
+		float2 offset =  (vnormal.xy);
 		o.pos.xy += offset * _OutlineFactor;
 		return o;
 

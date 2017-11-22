@@ -37,7 +37,7 @@ public class ObjectManager {
     public GameObject getObject(int ID)
     {
         if (m_dicObjects.ContainsKey(ID))
-        {
+        { 
             return m_dicObjects[ID];
         }
         return null;

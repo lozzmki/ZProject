@@ -10,8 +10,8 @@ public class CommonMoveState : StateMachineBehaviour {
         if (_entity == null)
             return;
 
-        if (animator.GetBool("range"))
-            return;
+//         if (animator.GetBool("range"))
+//             return;
 
         animator.gameObject.transform.position += animator.gameObject.transform.forward.normalized
             * _entity.m_Properties[Entity.SPEED].d_Value * Time.deltaTime;
