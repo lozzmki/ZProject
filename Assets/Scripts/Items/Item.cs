@@ -101,7 +101,7 @@ public class Item : MonoBehaviour {
         SLua.LuaTable _table;
         //Script prefix path: Assets/Scripts/Lua/
         //read file
-        _table = (SLua.LuaTable)SLua.LuaSvr.getInstance().doFile("Items/" + m_LuaScript);
+        SLua.LuaSvr.getInstance().doFile("Items/" + m_LuaScript);
 
         //onuse function
         SLua.LuaFunction _func = (SLua.LuaFunction)SLua.LuaSvr.mainState["OnUse"];

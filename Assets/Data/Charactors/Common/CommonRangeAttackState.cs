@@ -16,6 +16,8 @@ public class CommonRangeAttackState : StateMachineBehaviour {
                 return;
             _weapon.Attack();
 
+            _baseDmg += _weapon.m_Damage;
+
             if (_parts) {
                 string _ammoName = _parts.m_Projectile;
                 _proj = Resources.Load<GameObject>("Prefabs/Projectiles/" + _ammoName);
@@ -29,7 +31,7 @@ public class CommonRangeAttackState : StateMachineBehaviour {
                 }
 
                 _proj.GetComponent<Projectile>().m_Damage = _parts.m_Damage;
-                _baseDmg = _parts.m_Damage;
+                _baseDmg += _parts.m_Damage;
             }
             else {
                 //no ammo, use default

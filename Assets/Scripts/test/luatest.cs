@@ -6,7 +6,6 @@ using UnityEngine;
 public class luatest : MonoBehaviour {
     float _p = 0.0f;
 
-    public GameObject _testAI;
 
 	// Use this for initialization
 	void Start () {

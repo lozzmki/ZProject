@@ -77,66 +77,21 @@ public class Entity : MonoBehaviour {
     public DProperty[] m_Properties;
     private float m_fBurden;
 
-    private Animator m_StateMachine;
     // Use this for initialization
     void Start () {
         m_Properties = new DProperty[6];
-        m_Properties[SPEED].d_Value = 8;//for test
 
-        m_StateMachine = gameObject.GetComponent<Animator>();
+        //for test
+        m_Properties[SPEED].d_Value = 1;
+        m_Properties[ARMOR].d_Value = 10;
+        m_Properties[MAX_HP].d_Value = 200;
+        m_fHp = 200;
+        //for test end
 
-        gameObject.GetComponent<Transceiver>().AddResolver("Move", MoveTowards);
-        gameObject.GetComponent<Transceiver>().AddResolver("StopMoving", StopMoving);
         gameObject.GetComponent<Transceiver>().AddResolver("Damage", Damage);
-        gameObject.GetComponent<Transceiver>().AddResolver("Fire", Fire);
-        gameObject.GetComponent<Transceiver>().AddResolver("CeaseFire", CeaseFire);
+        
         //init from lua script
 
-    }
-	
-    public void MoveTowards(DSignal signal){
-        Vector3 vDirection = (Vector3)signal._arg1;
-        //Position,move to FSM
-        //gameObject.transform.position += vDirection.normalized * m_Properties[SPEED].d_Value * Time.deltaTime;
-        //Rotation
-        //         Vector3 _vTurn = gameObject.transform.InverseTransformDirection(vDirection);
-        //         float _fAngle = Mathf.Atan2(_vTurn.x, _vTurn.z) * Mathf.Rad2Deg;
-        //         float _fRotation = 3500.0f * Time.deltaTime;
-        // 
-        //         if (Mathf.Abs(_fAngle) < _fRotation)
-        //             _fRotation = _fAngle;
-        //         else {
-        //             if (_fAngle < 0.0f)
-        //                 _fRotation = -_fRotation;
-        //         }
-        //         gameObject.transform.Rotate(0.0f, _fRotation, 0.0f);
-        gameObject.transform.forward = vDirection;
-        m_StateMachine.SetBool("move", true);
-    }
-
-    public void StopMoving(DSignal signal)
-    {
-        m_StateMachine.SetBool("move", false);
-    }
-
-    public void Fire(DSignal signal)
-    {
-        Item _weapon = gameObject.GetComponent<Inventory>().GetWeapon();
-        if (_weapon == null)
-            return;
-
-        if(_weapon.m_WeaponType == WeaponType.WEAPON_MELEE) {
-            m_StateMachine.SetBool("melee", true);
-        }
-        else {
-            m_StateMachine.SetBool("range", true);
-        }
-    }
-
-    public void CeaseFire(DSignal signal)
-    {
-        m_StateMachine.SetBool("range", false);
-        m_StateMachine.SetBool("melee", false);
     }
 
     public void ApplyBonus(DAttributeBonus dBonus)
@@ -160,10 +115,16 @@ public class Entity : MonoBehaviour {
 
     public void Damage(DSignal signal)
     {
-        m_fHp -= System.Convert.ToSingle(signal._arg1);
+        float _fRatio = 100.0f / (100.0f + m_Properties[ARMOR].d_Value);
+        if (_fRatio > 10.0f || _fRatio < 0.0f)
+            _fRatio = 10.0f;
+
+        m_fHp -= System.Convert.ToSingle(signal._arg1)*_fRatio;
         if (m_fHp <= 0.0f) {
             Debug.Log(gameObject + " was killed by " + signal._sender);
             Destroy(gameObject);
+            if (gameObject.tag == "Player")//TODO:shouldn't be like this!!!!!!
+                Camera.main.GetComponent<GameInput>().m_Player = null;
         }
     }
 

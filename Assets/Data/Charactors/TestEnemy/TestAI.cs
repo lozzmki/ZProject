@@ -53,7 +53,11 @@ public class TestAI : BaseAI {
 
     void OnKeyFrame()
     {
-
+        GameObject _proj = Instantiate(Resources.Load<GameObject>("Prefabs/Projectiles/Default"), gameObject.transform.position, Quaternion.AngleAxis(0.0f, Vector3.up));
+        _proj.transform.forward = gameObject.transform.forward;
+        _proj.GetComponent<Projectile>().m_Master = gameObject;
+        _proj.GetComponent<Projectile>().m_Damage += 10.0f;
+        _proj.GetComponent<Projectile>().m_Speed = 10.0f;
     }
 
     void OnAttackOver()

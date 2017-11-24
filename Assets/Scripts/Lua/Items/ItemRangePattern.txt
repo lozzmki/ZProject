@@ -4,7 +4,7 @@ require "Assets.Scripts.Lua.Items.Header" --定义了一些常量
 properties = {
 	Name =					"TestItem";--物品名
 	Type =					ITEM_WEAPON;
-	ShotType = 				WEAPON_AUTO;
+	ShotType = 				WEAPON_SPREAD;
 	AttackSpeed = 			10.0;
 	EnergyCost = 			1.0;
 	FirePower = 			15.0;
