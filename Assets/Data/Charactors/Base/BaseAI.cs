@@ -9,33 +9,31 @@ public abstract class BaseAI : MonoBehaviour {
 
     protected Animator m_Animator;
     protected Entity m_Entity;
-    //protected float m_fIntvTime;
-    //protected const float INTV_TIME = 0.5f;
     protected Dictionary<int, StateHandler> m_Handlers;
 	// Use this for initialization
 	void Start () {
         m_Animator = gameObject.GetComponent<Animator>();
         m_Entity = gameObject.GetComponent<Entity>();
         m_Handlers = new Dictionary<int, StateHandler>();
-        //m_fIntvTime = 0.0f;
         Init();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        //m_fIntvTime += Time.deltaTime;
         var _state = m_Animator.GetCurrentAnimatorStateInfo(0);
         int _key = _state.shortNameHash;
-        if (m_Handlers.ContainsKey(_key)) {
-            StateHandler _handler = m_Handlers[_key];
-            if (_handler != null) {
-                _handler();
+        if(!m_Animator.IsInTransition(0)) {
+            if (m_Handlers.ContainsKey(_key)) {
+                StateHandler _handler = m_Handlers[_key];
+                if (_handler != null) {
+                    _handler();
+                }
+            }
+            else {
+                Debug.LogWarning("Unhandled State in " + gameObject);
             }
         }
-        else {
-            Debug.LogWarning("Unhandled State in " + gameObject);
-        }
-	}
+    }
 
     protected void RegisterHandler(string name, StateHandler handler)
     {

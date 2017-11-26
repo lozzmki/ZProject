@@ -105,6 +105,18 @@ public class luatest : MonoBehaviour {
 
         Stage _stage = MapGenerator.NewMap(100);
         _stage.CreateStage();
+
+
+        GameObject go = new GameObject("aaa");
+        go.AddComponent(typeof(ttest));
+        GameObject go2 = Instantiate(go);
+        go.GetComponent<ttest>().tc.aa = 20;
+        GameObject go3 = Instantiate(go);
+        go.GetComponent<ttest>().tc.aa = 30;
+
+        Debug.Log(go.GetComponent<ttest>().tc.aa);
+        Debug.Log(go2.GetComponent<ttest>().tc.aa);
+        Debug.Log(go3.GetComponent<ttest>().tc.aa);
     }
 
     // Update is called once per frame

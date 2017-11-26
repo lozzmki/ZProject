@@ -40,6 +40,7 @@ public class Item : MonoBehaviour {
     public DAttributeBonus[] m_BonusList;
     public Texture2D m_Icon;
     public bool m_bPicked = false;
+    public LuaCache m_Cache;
 
     private float m_fCooldown;
     private float m_fFloat = 0.0f;
@@ -47,6 +48,10 @@ public class Item : MonoBehaviour {
     [SLua.CustomLuaClass]
     public delegate void ItemUsage();
     private ItemUsage m_UsageDelegate;
+
+    [SLua.CustomLuaClass]
+    public delegate void ItemUpdate(LuaCache c, float deltaTime);
+    private ItemUpdate m_UpdateDelegate;
 
     //if needs load data from script, clone ones shall not
     public bool m_bIfLoaded = false;
@@ -64,7 +69,7 @@ public class Item : MonoBehaviour {
             m_fCooldown -= Time.deltaTime;
         }
 
-        //animation
+        //animation & update
         if (!m_bPicked) {
             m_fFloat += Time.deltaTime;
             if (m_fFloat > Mathf.PI)
@@ -72,6 +77,11 @@ public class Item : MonoBehaviour {
 
             gameObject.transform.position = new Vector3(0.0f, 0.5f*Mathf.Sin(m_fFloat) + 0.8f, 0.0f) + Vector3.Scale(gameObject.transform.position, new Vector3(1, 0, 1));
             gameObject.transform.Rotate(Vector3.up, 80.0f * Time.deltaTime);
+        }
+        else {
+            //call update in lua
+            if (m_UpdateDelegate != null)
+                m_UpdateDelegate(m_Cache, Time.deltaTime);
         }
     }
 
@@ -97,6 +107,19 @@ public class Item : MonoBehaviour {
         }
     }
 
+    public void OnDuplicate(DSignal signal)
+    {
+        Item _item = ((GameObject)signal._arg1).GetComponent<Item>();
+        if (_item == null)
+            return;
+        else {
+            //copy object references
+            _item.m_UsageDelegate = m_UsageDelegate;
+            _item.m_UpdateDelegate = m_UpdateDelegate;
+            _item.m_Cache = new LuaCache();
+        }
+    }
+
     public void InitFromLuaFile() {
         SLua.LuaTable _table;
         //Script prefix path: Assets/Scripts/Lua/
@@ -107,6 +130,14 @@ public class Item : MonoBehaviour {
         SLua.LuaFunction _func = (SLua.LuaFunction)SLua.LuaSvr.mainState["OnUse"];
         if(_func != null)
             m_UsageDelegate += _func.cast<ItemUsage>();
+
+        _func = (SLua.LuaFunction)SLua.LuaSvr.mainState["OnUpdate"];
+        if (_func != null)
+            m_UpdateDelegate += _func.cast<ItemUpdate>();
+
+        
+        //m_Usage = (SLua.LuaFunction)SLua.LuaSvr.mainState["OnUse"];
+        //m_Update = (SLua.LuaFunction)SLua.LuaSvr.mainState["OnUpdate"];
 
         //load all the properties
         _table = (SLua.LuaTable)SLua.LuaSvr.mainState["properties"];
@@ -122,6 +153,10 @@ public class Item : MonoBehaviour {
         gameObject.GetComponent<Renderer>().material = _tmp.GetComponent<Renderer>().material;
         gameObject.transform.localScale = _tmp.transform.localScale;
         GameObject.Destroy(_tmp);
+        if(gameObject.GetComponent<Transceiver>() == null)
+            gameObject.AddComponent<Transceiver>();
+        gameObject.GetComponent<Transceiver>().AddResolver("Duplicate", OnDuplicate);
+
 
         //attributes
         m_ItemName = (string)_table["Name"];

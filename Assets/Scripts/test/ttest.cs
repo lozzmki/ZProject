@@ -2,16 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public class testClass{
+    public int aa;
+}
+
 public class ttest : MonoBehaviour {
-
+    public testClass tc;
+    
 	// Use this for initialization
-	void Start () {
-
+	void Awake () {
+        tc = new testClass();
+        Debug.Log("newd");
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        gameObject.transform.position += gameObject.transform.forward.normalized * Time.deltaTime * 10.0f;
+
 	}
 
 

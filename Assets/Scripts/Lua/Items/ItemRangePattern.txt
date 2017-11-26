@@ -20,7 +20,29 @@ properties = {
 	Description = 			"这是一把测试用的枪，能打子弹，用来砸人也很疼";
 }
 
---使用时调用，usr为使用者ID
-function OnUse(usr)
+--使用时调用，c为数据缓存
+function OnUse(c)
 	print("ItemUsed");
+end
+
+--每帧调用，c为数据缓存,deltaTime为帧间隔
+function OnUpdate(c, deltaTime)
+	local time = c:LoadValue(1);
+	local count = c:LoadValue(2);
+
+	if (time == nil) then
+		time = 0.0;
+	end
+	if (count == nil) then
+		count = 0;
+	end
+
+	time = time + deltaTime;
+	if (time > 1.0) then
+		time = 0.0
+		count = count + 1;
+		print("test, "..count.."s");
+		c:StoreValue(2, count);
+	end
+	c:StoreValue(1, time);
 end

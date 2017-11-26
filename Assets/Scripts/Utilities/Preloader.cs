@@ -33,7 +33,7 @@ public class Preloader : MonoBehaviour {
             obj.GetComponent<Item>().InitFromLuaFile();
             ObjectDictionary.GetItemDic().AddObject(_sName, obj);
             obj.transform.position += new Vector3(0, 0, 10000);
-
+            
         }
 
         //Projectiles,to modify..........
