@@ -2,6 +2,7 @@
 using System.Collections;
 
 /*
+ * @author: beyondray
  * @Desc: 将此脚本挂在任何物体上都可实现震动效果
  * case1: 挂在摄像机上模拟震屏
  * case2: 挂在地形上模拟大地震动
