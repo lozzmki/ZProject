@@ -44,6 +44,8 @@ public class CommonRangeAttackState : StateMachineBehaviour {
             _proj.GetComponent<Projectile>().m_Master = _obj;
             _proj.GetComponent<Projectile>().m_Damage += (_baseDmg + _obj.GetComponent<Entity>().m_Properties[Entity.RANGE_POWER].d_Value);
             _proj.GetComponent<Projectile>().m_Speed = 30.0f;
+            _proj.GetComponent<Projectile>().m_Weapon = _weapon;
+            _proj.GetComponent<Projectile>().m_Parts = _parts;
 
             GameObject _extra;
             switch (_weapon.m_WeaponType) {

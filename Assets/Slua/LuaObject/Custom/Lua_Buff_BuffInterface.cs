@@ -2,13 +2,15 @@
 using SLua;
 using System.Collections.Generic;
 [UnityEngine.Scripting.Preserve]
-public class Lua_LuaCache : LuaObject {
+public class Lua_Buff_BuffInterface : LuaObject {
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	[UnityEngine.Scripting.Preserve]
 	static public int constructor(IntPtr l) {
 		try {
-			LuaCache o;
-			o=new LuaCache();
+			Buff.BuffInterface o;
+			Buff a1;
+			checkType(l,2,out a1);
+			o=new Buff.BuffInterface(a1);
 			pushValue(l,true);
 			pushValue(l,o);
 			return 2;
@@ -19,29 +21,10 @@ public class Lua_LuaCache : LuaObject {
 	}
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	[UnityEngine.Scripting.Preserve]
-	static public int StoreValue(IntPtr l) {
+	static public int GetCache(IntPtr l) {
 		try {
-			LuaCache self=(LuaCache)checkSelf(l);
-			System.Int32 a1;
-			checkType(l,2,out a1);
-			System.Object a2;
-			checkType(l,3,out a2);
-			self.StoreValue(a1,a2);
-			pushValue(l,true);
-			return 1;
-		}
-		catch(Exception e) {
-			return error(l,e);
-		}
-	}
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	[UnityEngine.Scripting.Preserve]
-	static public int LoadValue(IntPtr l) {
-		try {
-			LuaCache self=(LuaCache)checkSelf(l);
-			System.Int32 a1;
-			checkType(l,2,out a1);
-			var ret=self.LoadValue(a1);
+			Buff.BuffInterface self=(Buff.BuffInterface)checkSelf(l);
+			var ret=self.GetCache();
 			pushValue(l,true);
 			pushValue(l,ret);
 			return 2;
@@ -52,10 +35,12 @@ public class Lua_LuaCache : LuaObject {
 	}
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	[UnityEngine.Scripting.Preserve]
-	static public int get_GlobalTicket(IntPtr l) {
+	static public int GetStackNum(IntPtr l) {
 		try {
+			Buff.BuffInterface self=(Buff.BuffInterface)checkSelf(l);
+			var ret=self.GetStackNum();
 			pushValue(l,true);
-			pushValue(l,LuaCache.GlobalTicket);
+			pushValue(l,ret);
 			return 2;
 		}
 		catch(Exception e) {
@@ -64,10 +49,27 @@ public class Lua_LuaCache : LuaObject {
 	}
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	[UnityEngine.Scripting.Preserve]
-	static public int get_GlobalCache(IntPtr l) {
+	static public int GetTime(IntPtr l) {
 		try {
+			Buff.BuffInterface self=(Buff.BuffInterface)checkSelf(l);
+			var ret=self.GetTime();
 			pushValue(l,true);
-			pushValue(l,LuaCache.GlobalCache);
+			pushValue(l,ret);
+			return 2;
+		}
+		catch(Exception e) {
+			return error(l,e);
+		}
+	}
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	[UnityEngine.Scripting.Preserve]
+	static public int CreateBuff_s(IntPtr l) {
+		try {
+			SLua.LuaTable a1;
+			checkType(l,1,out a1);
+			var ret=Buff.BuffInterface.CreateBuff(a1);
+			pushValue(l,true);
+			pushValue(l,ret);
 			return 2;
 		}
 		catch(Exception e) {
@@ -76,11 +78,11 @@ public class Lua_LuaCache : LuaObject {
 	}
 	[UnityEngine.Scripting.Preserve]
 	static public void reg(IntPtr l) {
-		getTypeTable(l,"LuaCache");
-		addMember(l,StoreValue);
-		addMember(l,LoadValue);
-		addMember(l,"GlobalTicket",get_GlobalTicket,null,false);
-		addMember(l,"GlobalCache",get_GlobalCache,null,false);
-		createTypeMetatable(l,constructor, typeof(LuaCache));
+		getTypeTable(l,"Buff.BuffInterface");
+		addMember(l,GetCache);
+		addMember(l,GetStackNum);
+		addMember(l,GetTime);
+		addMember(l,CreateBuff_s);
+		createTypeMetatable(l,constructor, typeof(Buff.BuffInterface));
 	}
 }

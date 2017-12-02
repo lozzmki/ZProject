@@ -109,14 +109,22 @@ public class luatest : MonoBehaviour {
 
         GameObject go = new GameObject("aaa");
         go.AddComponent(typeof(ttest));
+        go.GetComponent<ttest>().tc = new testClass();
+        go.GetComponent<ttest>().tc.aa = 10;
+        go.GetComponent<ttest>().tc.bb = 10;
         GameObject go2 = Instantiate(go);
         go.GetComponent<ttest>().tc.aa = 20;
+        go.GetComponent<ttest>().tc.bb = 20;
         GameObject go3 = Instantiate(go);
         go.GetComponent<ttest>().tc.aa = 30;
+        go.GetComponent<ttest>().tc.bb = 30;
 
         Debug.Log(go.GetComponent<ttest>().tc.aa);
+        Debug.Log(go.GetComponent<ttest>().tc.bb);
         Debug.Log(go2.GetComponent<ttest>().tc.aa);
+        Debug.Log(go2.GetComponent<ttest>().tc.bb);
         Debug.Log(go3.GetComponent<ttest>().tc.aa);
+        Debug.Log(go3.GetComponent<ttest>().tc.bb);
     }
 
     // Update is called once per frame

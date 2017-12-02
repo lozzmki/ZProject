@@ -6,7 +6,7 @@ namespace SLua
     public partial class LuaDelegation : LuaObject
     {
 
-        static internal void Lua_Item_ItemUpdate(LuaFunction ld ,LuaCache a1,float a2) {
+        static internal void Lua_Item_ItemFunc(LuaFunction ld ,Item.ItemInterface a1,System.Object a2) {
             IntPtr l = ld.L;
             int error = pushTry(l);
 

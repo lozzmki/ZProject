@@ -21,12 +21,13 @@ properties = {
 }
 
 --使用时调用，c为数据缓存
-function OnUse(c)
+function OnUse(inter,c)
 	print("ItemUsed");
 end
 
---每帧调用，c为数据缓存,deltaTime为帧间隔
-function OnUpdate(c, deltaTime)
+--在人物身上时每帧调用，c为数据缓存,deltaTime为帧间隔
+function OnUpdate(inter, deltaTime)
+	local c = inter:GetCache();
 	local time = c:LoadValue(1);
 	local count = c:LoadValue(2);
 
@@ -45,4 +46,36 @@ function OnUpdate(c, deltaTime)
 		c:StoreValue(2, count);
 	end
 	c:StoreValue(1, time);
+end
+
+function OnHit(inter, enemy)
+	local buff = {
+		Name =				"Cracker Buff";
+		Description =		"降低防御力";
+		MaxStackNum =		5;
+		Duration =			1.0;
+		Stackable =			true;
+		Bonus = {
+			{ATTR_ARMOR, IS_FIXED, -1.0};
+			--buff层数改变时会增减这里包含的所有属性*层数改变量
+		};
+		OnAttach = function(inter)
+			--当buff被添加到实体上时调用 do nothing
+			print("Buff Attached!");
+		end;
+		OnDetach = function(inter)
+			--当buff消失时调用（持续时间到或被移除） do nothing
+		end;
+		OnUpdate = function(inter,time)
+			--每帧调用 do nothing
+			--print(""..inter:GetStackNum().." Buff Update Event!")
+		end;
+		OnDamaged = function(inter,damage)
+			--带有这个buff的实体被伤害时调用 do nothing
+		end;
+		--这种事件触发的函数可以扩展，只需要在相应的位置添加调用即可
+	};
+
+	local b = Buff.BuffInterface.CreateBuff(buff);
+	enemy:AddBuff(b);
 end

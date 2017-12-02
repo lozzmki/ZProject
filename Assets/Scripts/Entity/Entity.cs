@@ -66,6 +66,8 @@ public class Entity : MonoBehaviour {
     public int m_Coins;
     public float m_MaxCarrying;
 
+    public BuffManager m_Buffs;
+
     //tags, for coding..
     public const int MAX_HP = 0;
     public const int MAX_EN = 1;
@@ -77,9 +79,21 @@ public class Entity : MonoBehaviour {
     public DProperty[] m_Properties;
     private float m_fBurden;
 
+    private EntityInterface _m_interface;
+    public EntityInterface m_Interface
+    {
+        get
+        {
+            if (_m_interface == null)
+                _m_interface = new EntityInterface(this);
+            return _m_interface;
+        }
+    }
+
     // Use this for initialization
-    void Start () {
+    void Start() {
         m_Properties = new DProperty[6];
+        m_Buffs = new BuffManager(this);
 
         //for test
         m_Properties[SPEED].d_Value = 1;
@@ -89,9 +103,15 @@ public class Entity : MonoBehaviour {
         //for test end
 
         gameObject.GetComponent<Transceiver>().AddResolver("Damage", Damage);
-        
+
         //init from lua script
 
+    }
+
+
+    private void Update()
+    {
+        m_Buffs.Update();
     }
 
     public void ApplyBonus(DAttributeBonus dBonus)
@@ -119,7 +139,8 @@ public class Entity : MonoBehaviour {
         if (_fRatio > 10.0f || _fRatio < 0.0f)
             _fRatio = 10.0f;
 
-        m_fHp -= System.Convert.ToSingle(signal._arg1)*_fRatio;
+        float _fDamage = System.Convert.ToSingle(signal._arg1) * _fRatio;
+        m_fHp -= _fDamage;
         if (m_fHp <= 0.0f) {
             Debug.Log(gameObject + " was killed by " + signal._sender);
             Destroy(gameObject);
@@ -128,4 +149,22 @@ public class Entity : MonoBehaviour {
         }
     }
 
+
+    [SLua.CustomLuaClass]
+    public class EntityInterface
+    {
+        [SLua.DoNotToLua]
+        public Entity m_Entity;
+
+        public EntityInterface(Entity ety = null)
+        {
+            m_Entity = ety;
+        }
+
+        public void AddBuff(Buff.BuffInterface buff)
+        {
+            if (m_Entity != null)
+                m_Entity.m_Buffs.AddBuff(buff.m_Buff);
+        }
+    }
 }

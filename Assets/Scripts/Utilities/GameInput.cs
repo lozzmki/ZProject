@@ -46,14 +46,14 @@ public class GameInput : MonoBehaviour {
         Transceiver.SendSignal(new DSignal(gameObject, m_Player, "Joystick", _fHor, _fVer));
 
         //Fire
-        if (Input.GetKeyDown(KeyCode.Joystick1Button0)) {
+        if (Input.GetKeyDown(KeyCode.Joystick1Button0) || Input.GetKeyDown(KeyCode.J)) {
             Transceiver.SendSignal(new DSignal(gameObject, m_Player, "FireButton", true));
             //if (m_Player.GetComponent<Inventory>().m_ItemForPick != null) {
             //    Transceiver.SendSignal(new DSignal(gameObject, m_Player, "Pickup"));
             //}
             //Transceiver.SendSignal(new DSignal(gameObject, m_Player, "Fire"));
         }
-        else if (Input.GetKeyUp(KeyCode.Joystick1Button0)) {
+        else if (Input.GetKeyUp(KeyCode.Joystick1Button0) || Input.GetKeyUp(KeyCode.J)) {
             Transceiver.SendSignal(new DSignal(gameObject, m_Player, "FireButton", false));
         }
         

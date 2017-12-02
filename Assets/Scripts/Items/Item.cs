@@ -40,21 +40,63 @@ public class Item : MonoBehaviour {
     public DAttributeBonus[] m_BonusList;
     public Texture2D m_Icon;
     public bool m_bPicked = false;
+
     public LuaCache m_Cache;
+    private ItemInterface _m_interface;
+    public ItemInterface m_Interface
+    {
+        get
+        {
+            if (_m_interface == null)
+                _m_interface = new ItemInterface(this);
+            return _m_interface;
+        }
+    }
 
     private float m_fCooldown;
     private float m_fFloat = 0.0f;
 
     [SLua.CustomLuaClass]
-    public delegate void ItemUsage();
-    private ItemUsage m_UsageDelegate;
+    public delegate void ItemFunc(ItemInterface inter, object args);
 
-    [SLua.CustomLuaClass]
-    public delegate void ItemUpdate(LuaCache c, float deltaTime);
-    private ItemUpdate m_UpdateDelegate;
+    event ItemFunc OnUpdate;
+    event ItemFunc OnUse;
+    event ItemFunc OnHit;
+    
+
+    //[SLua.CustomLuaClass]
+    //public delegate void ItemUsage();
+    //private ItemUsage m_UsageDelegate;
+    
+    //[SLua.CustomLuaClass]
+    //public delegate void ItemUpdate(LuaCache c, float deltaTime);
+    //private ItemUpdate m_UpdateDelegate;
 
     //if needs load data from script, clone ones shall not
     public bool m_bIfLoaded = false;
+
+
+
+
+    [SLua.CustomLuaClass]
+    public class ItemInterface
+    {
+        [SLua.DoNotToLua]
+        Item m_Item;
+
+        public ItemInterface(Item item = null)
+        {
+            m_Item = item;
+        }
+
+        public LuaCache GetCache()
+        {
+            return m_Item.m_Cache;
+        }
+    }
+
+
+
 
 	// Use this for initialization
 	void Start () {
@@ -80,16 +122,22 @@ public class Item : MonoBehaviour {
         }
         else {
             //call update in lua
-            if (m_UpdateDelegate != null)
-                m_UpdateDelegate(m_Cache, Time.deltaTime);
+            if (OnUpdate != null)
+                OnUpdate(m_Interface, Time.deltaTime);
         }
     }
 
     public void Use()
     {
         //pass the user ID,todo
-        if(m_UsageDelegate != null) {
-            m_UsageDelegate();
+        if(OnUse != null) {
+            OnUse(m_Interface, Time.deltaTime);
+        }
+    }
+    public void Hit(Entity target)
+    {
+        if(OnHit != null) {
+            OnHit(m_Interface, target.m_Interface);
         }
     }
 
@@ -114,10 +162,18 @@ public class Item : MonoBehaviour {
             return;
         else {
             //copy object references
-            _item.m_UsageDelegate = m_UsageDelegate;
-            _item.m_UpdateDelegate = m_UpdateDelegate;
+            _item.OnUse = OnUse;
+            _item.OnUpdate = OnUpdate;
+            _item.OnHit = OnHit;
             _item.m_Cache = new LuaCache();
         }
+    }
+
+    private ItemFunc _CastFunc(object func)
+    {
+        if (func != null)
+            return ((SLua.LuaFunction)func).cast<ItemFunc>();
+        return null;
     }
 
     public void InitFromLuaFile() {
@@ -126,25 +182,16 @@ public class Item : MonoBehaviour {
         //read file
         SLua.LuaSvr.getInstance().doFile("Items/" + m_LuaScript);
 
-        //onuse function
-        SLua.LuaFunction _func = (SLua.LuaFunction)SLua.LuaSvr.mainState["OnUse"];
-        if(_func != null)
-            m_UsageDelegate += _func.cast<ItemUsage>();
-
-        _func = (SLua.LuaFunction)SLua.LuaSvr.mainState["OnUpdate"];
-        if (_func != null)
-            m_UpdateDelegate += _func.cast<ItemUpdate>();
-
-        
-        //m_Usage = (SLua.LuaFunction)SLua.LuaSvr.mainState["OnUse"];
-        //m_Update = (SLua.LuaFunction)SLua.LuaSvr.mainState["OnUpdate"];
+        //functions
+        OnUse += _CastFunc(SLua.LuaSvr.mainState["OnUse"]);
+        OnUpdate += _CastFunc(SLua.LuaSvr.mainState["OnUpdate"]);
+        OnHit += _CastFunc(SLua.LuaSvr.mainState["OnHit"]);
 
         //load all the properties
         _table = (SLua.LuaTable)SLua.LuaSvr.mainState["properties"];
 
         //load mesh
         m_Prefab = (string)_table["Mesh"];
-        //GameObject _tmp = Resources.Load<GameObject>("Prefabs/"+m_Prefab);
         GameObject _tmp = Resources.Load<GameObject>("Meshes/" + m_Prefab);
         _tmp = Instantiate(_tmp);
         gameObject.AddComponent<MeshFilter>();

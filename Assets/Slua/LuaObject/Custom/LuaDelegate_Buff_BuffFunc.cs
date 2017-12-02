@@ -6,11 +6,13 @@ namespace SLua
     public partial class LuaDelegation : LuaObject
     {
 
-        static internal void Lua_Item_ItemUsage(LuaFunction ld ) {
+        static internal void Lua_Buff_BuffFunc(LuaFunction ld ,Buff.BuffInterface a1,float a2) {
             IntPtr l = ld.L;
             int error = pushTry(l);
 
-			ld.pcall(0, error);
+			pushValue(l,a1);
+			pushValue(l,a2);
+			ld.pcall(2, error);
 			LuaDLL.lua_settop(l, error-1);
 		}
 	}
