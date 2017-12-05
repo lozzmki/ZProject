@@ -1,0 +1,36 @@
+require "Assets.Scripts.Lua.Items.Header"
+properties = {
+	Name =            "Cracker"; --物品名
+	Type =            ITEM_WEAPEN;
+	ShotType =        WEAPON_AUTO;
+	EnergyCost =      0.0;
+	AttackSpeed =     10.0;
+	FirePower =       25.0;
+	Weight =          15.0;
+	Mesh =            "Shell"; --模型文件
+	Bonus ={
+	    {ATTR_MAX_HP, IS_RATIO, 10.0};
+	    {ATTR_MAX_EN, IS_RATIO, 10.0};
+	    {ATTR_RANGE_POWER, IS_FIXED, 20.0};
+	};
+	Description = "Cracker 自动步枪 攻击命中有10%几率降低目标1点防御，最多叠加5次（初始)";
+}
+
+function OnUse(usr)
+    print("Cracker Used");
+end
+
+--调用该buff的几率为10%
+function OnHit(enemy)
+	local buff = {
+		Name =					"Cracker Buff";
+		Description =			"降低防御力";
+		MaxStackNum =			5;  --最多叠加5次，降低5点防御力
+		Stackable =				true;
+		Bonus = {
+			{ATTR_ARMOR, IS_FIXED, -1.0}; --每次降低一点防御力
+		};
+
+	};
+	enemy:AddBuff(Buff.CreateBuff(buff));
+end

@@ -1,0 +1,26 @@
+require "Assets.Scripts.Lua.Items.Header" --定义了一些常量
+--文件名为注册名
+--物品的属性表
+properties = {
+	Name =					"Ruby";--物品名
+	Type =					ITEM_WEAPON;
+	ShotType = 				WEAPON_LASER;
+	AttackSpeed = 			10.0;
+	EnergyCost = 			0.0;
+	FirePower = 			15.0;
+	Weight = 				10.0;
+	Mesh = 					"Shell";--模型文件名
+	Bonus = {
+		{ATTR_MAX_HP, IS_RATIO, 10.0};--{属性，是否是比例，值}
+		{ATTR_MAX_EN, IS_FIXED, 20.0};
+		{ATTR_MELEE_POWER, IS_FIXED, 10.0};
+		{ATTR_RANGE_POWER, IS_RATIO, 10.0};
+		--需要更多的值就按格式加新行
+	};
+	Description = 			"激光枪,普通掉落物品（基础）";
+}
+
+--使用时调用，c为数据缓存
+function OnUse(c)
+	print("Ruby Used");
+end

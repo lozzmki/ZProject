@@ -1,0 +1,37 @@
+require "Assets.Scripts.Lua.Items.Header" --定义了一些常量
+--文件名为注册名
+--物品的属性表
+properties = {
+	Name =					"Sapphire";--物品名
+	Type =					ITEM_WEAPON;
+	ShotType = 				WEAPON_LASER;
+	AttackSpeed = 			15.0;
+	EnergyCost = 			0.0;
+	FirePower = 			20.0;
+	Weight = 				15.0;
+	Mesh = 					"Shell";--模型文件名
+	Bonus = {
+		{ATTR_MAX_HP, IS_RATIO, 10.0};--{属性，是否是比例，值}
+		{ATTR_MAX_EN, IS_FIXED, 20.0};
+		{ATTR_MELEE_POWER, IS_FIXED, 10.0};
+		{ATTR_RANGE_POWER, IS_RATIO, 20.0};
+	};
+	Description = 			"Sapphire 激光枪 被攻击的目标降低30%移动速度，刷新不叠加，持续1s（高级掉落装备）";
+}
+
+--使用时调用，c为数据缓存
+function OnUse(c)
+	print("Sapphire Used");
+end
+
+function OnHit(enemy)
+	local buff = {
+		Name = 				"Sapphire Buff";
+		Description = 		"降低移动速度";
+		Duration = 			1.0; -- 特效持续时间1s
+		Stackable = 		false;
+		Bonus = {
+			{ATTR_SPEED, IS_RATIO, -30.0};
+		};
+	};
+end

@@ -1,0 +1,49 @@
+require "Assets.Scripts.Lua.Items.Header"
+properties = {
+	Name =            "Blaster"; --物品名
+	Type =            ITEM_WEAPEN;
+	ShotType =        WEAPON_AUTO;
+	EnergyCost =      15.0; --消耗15能量
+	AttackSpeed =     10.0;
+	FirePower =       30.0;
+	Weight =          10.0;
+	Mesh =            "Shell"; --模型文件
+	Bonus ={
+		{ATTR_MAX_HP, IS_RATIO, 10.0};
+	    {ATTR_MAX_EN, IS_RATIO, 10.0};
+	    {ATTR_WEAPON_DAMAGE, IS_RATIO, 500.0};
+	};
+	Description = "Blaster 自动步枪 消耗15能量，发射一颗榴弹（附带攻击特效），落地或命中产生爆炸，造成500%武器攻击力的伤害。(高级掉落)";
+}
+
+//buff加给Blaster打出的榴弹
+function OnUse(usr)
+ 	local buff ={
+ 		Name = 			"BlasterShell Buff";
+ 		Description = 	"榴弹特效";
+ 		Stackable = 	false;
+
+ 		OnAttach = function(inter)
+ 			--攻击特效
+ 		end;
+
+ 		OnDetach = function(inter)
+ 			--爆炸特效
+ 		end;
+ 	};
+
+ 	--加给usr的榴弹
+	usr:AddBuff(Buff.CreateBuff(buff));
+    print("Blaster Used");
+end
+
+function OnHit(enemy)
+	local buff = {
+		Name = 				"BlasterDam Buff";
+		Description = 		"伤害敌人";
+		Stackable = 		false;
+		OnDamaged = function(inter,damage)
+			inter.GetEntity().m_fHp -= inter.GetBonus().ATTR_WEAPON_DAMAGE*5.0;
+		end;
+	};
+end

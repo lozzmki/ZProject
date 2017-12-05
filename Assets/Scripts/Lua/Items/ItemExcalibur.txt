@@ -1,0 +1,43 @@
+require "Assets.Scripts.Lua.Items.Header" --定义了一些常量
+--文件名为注册名
+--物品的属性表
+properties = {
+	Name =					"Excalibur";--物品名
+	Type =					ITEM_WEAPON;
+	ShotType = 				WEAPON_MELEE;
+	EnergyCost = 			0.0;
+	AttackSpeed = 			15.0;
+	FirePower = 			30.0;
+	Weight = 				30.0;
+	Mesh = 					"Shell";--模型文件名
+	Description = 			"Excalibur 剑 消耗所有能量，向前方挥出一道大范围的剑气，造成（消耗能量值*10+100）%武器攻击的伤害(终极)";
+}
+
+--使用时调用，usr为使用者ID
+function OnUse(usr)
+	local buffEnergy = {
+		Name = 				"Excalibur Buff";
+		Description = 		"消耗当前所有能量+生成剑气";
+		Stackable = 		false;
+		OnAttach = function(inter)
+			usr.GetEntity().m_fEnergy = 0; -- 当前能量耗尽
+			--发消息给敌人 使用了多少能量
+			--向usr forward方向 生成剑气的特效
+		end;
+	};
+	usr:AddBuff(Buff.CreateBuff(buffEnergy));
+	print("Excalibur Used");
+end
+
+function OnHit(enemy)
+	local buffDamage = {
+		Name = 				"ExcaliburDam Buff";
+		Description = 		"伤害敌人";
+		Stackable = 		false;
+		OnDamaged = function(inter,damage)
+			--收到主角使用了多少能量 energy
+			inter.GetEntity().m_fHp -= (energy*10+100)/100.0 * inter.GetBonus().ATTR_WEAPON_DAMAGE;
+		end;
+	};
+	enemy:AddBuff(Buff.CreateBuff(buffDamage));
+end

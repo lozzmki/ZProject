@@ -1,0 +1,34 @@
+require "Assets.Scripts.Lua.Items.Header"
+properties = {
+	Name =            "Vepr"; --物品名
+	Type =            ITEM_WEAPEN;
+	ShotType =        WEAPON_AUTO;
+	EnergyCost =      10.0;   --能量消耗10点
+	AttackSpeed =     20.0;
+	FirePower =       20.0;
+	Weight =          20.0;
+	Mesh =            "Shell"; --模型文件
+	Bonus ={
+	    {ATTR_MAX_HP, IS_RATIO, 10.0};
+	    {ATTR_MAX_EN, IS_RATIO, 10.0};
+	    {ATTR_RANGE_POWER, IS_RATIO, 250.0};--攻击力为250%
+	};
+	Description = "Vepr 霰弹枪 消耗10能量，进行一次攻击距离150%，攻击力为250%的攻击，并将击中的目标击退(高级掉落装备)";
+}
+
+function OnUse(usr)
+    print("Vepr Used");
+end
+
+function OnHit(enemy)
+	local buff = {
+		Name = 				"Vepr Buff";
+		Description = 		"击退目标";
+		Stackable = 		false;
+
+		OnDameged = function(inter,damage)
+			--敌人播放击退的动画（修改状态机的击退bool）
+		end;
+	};
+	enemy:AddBuff(Buff.CreateBuff(buff));
+end

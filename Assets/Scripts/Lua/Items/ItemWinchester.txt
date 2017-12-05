@@ -1,0 +1,21 @@
+require "Assets.Scripts.Lua.Items.Header"
+properties = {
+	Name =            "Winchester"; --物品名
+	Type =            ITEM_WEAPEN;
+	ShotType =        WEAPON_AUTO;
+	EnergyCost =      0.0;
+	AttackSpeed =     20.0;
+	FirePower =       20.0;
+	Weight =          20.0;
+	Mesh =            "Shell"; --模型文件
+	Bonus ={
+	    {ATTR_MAX_HP, IS_RATIO, 10.0};
+	    {ATTR_MAX_EN, IS_RATIO, 10.0};
+	    {ATTR_RANGE_POWER, IS_FIXED, 20.0};
+	};
+	Description = "霰弹枪,普通掉落物品（基础）";
+}
+
+function OnUse(usr)
+    print("Winchester Used");
+end

@@ -1,0 +1,20 @@
+require "Assets.Scripts.Lua.Items.Header" --定义了一些常量
+--文件名为注册名
+--物品的属性表
+properties = {
+	Name =					"Elastic";--物品名
+	Type =					ITEM_PARTS;
+	Damage = 				5.0;
+	Weight = 				0.0; 
+	Mesh = 					"Shell";--物品模型文件名
+	Ammo = 					"Default";--子弹预制体名,
+	Description = 			"弹性能量 配件 使投射物碰到墙壁后可以额外反弹一次(高级掉落装备)";
+}
+
+--使用时调用，usr为使用者ID
+function OnUse(usr)
+	print("Elastic Used");
+end
+
+function OnHit(enemy)
+end

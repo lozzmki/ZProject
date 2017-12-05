@@ -1,0 +1,48 @@
+require "Assets.Scripts.Lua.Items.Header" --定义了一些常量
+--文件名为注册名
+--物品的属性表
+properties = {
+	Name =					"FireQuartz";--物品名
+	Type =					ITEM_PARTS;
+	Damage = 				0.0;
+	Weight = 				2.0; 
+	Mesh = 					"Shell";--物品模型文件名
+	Ammo = 					"Default";--子弹预制体名,
+	Description = 			"火焰水晶 配件 攻击命中时使目标进入燃烧状态，在3s内共造成100%武器攻击的伤害，效果覆盖不叠加(高级掉落装备)";
+}
+
+--使用时调用，usr为使用者ID
+function OnUse(usr)
+	local buff = {
+		Name = 				"QuartzUsr Buff";
+		Description = 		"提升武器攻击";
+		Duration = 			3.0;
+		Srackable = 		false;
+
+		OnAttach = function (inter)
+			FirstAttack = math.random(1,15);
+			SecondAttack = math.random(15,30);
+			ThirdAttack = 100.0 - FirstAttack - SecondAttack;
+
+			--need to add the method
+			table.insert(inter.GetBonus(), {ATTR_WEAPON_DAMAGE, IS_RATIO, FirstAttack});
+			table.insert(inter.GetBonus(), {ATTR_WEAPON_DAMAGE, IS_RATIO, SecondAttack});
+			table.insert(inter.GetBonus(), {ATTR_WEAPON_DAMAGE, IS_RATIO, ThirdAttack});
+		end;
+	};
+	usr.AddBuff(Buff.CreateBuff(buff));
+	print("FireQuartz Used");
+end
+
+function OnHit(enemy)
+	local buff = {
+		Name = 				"QuartzEnemy Buff";
+		Description = 		"燃烧目标";
+		Duration = 			3.0;
+		Stackable = 		false;
+		OnAttach = function(inter)
+			--燃烧特效
+		end;
+	};
+	enemy:AddBuff(Buff.CreateBuff(buff));
+end

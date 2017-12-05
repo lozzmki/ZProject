@@ -1,0 +1,39 @@
+require "Assets.Scripts.Lua.Items.Header" --定义了一些常量
+--文件名为注册名
+--物品的属性表
+properties = {
+	Name =					"FluxaySword";--物品名
+	Type =					ITEM_WEAPON;
+	ShotType = 				WEAPON_MELEE;
+	EnergyCost = 			0.0;
+	AttackSpeed = 			20.0;
+	FirePower = 			15.0;
+	Weight = 				10.0;
+	Mesh = 					"Shell";--模型文件名
+	Bonus = {
+		{ATTR_MAX_HP, IS_RATIO, 10.0};
+		{ATTR_MAX_EN, IS_FIXED, 20.0};
+		{ATTR_MELEE_POWER, IS_FIXED, 15.0};
+
+	};
+	Description = 			"流光 剑 攻击目标与上一次不同时，武器攻击提高40%(高级掉落)";
+}
+
+--使用时调用，usr为使用者ID
+function OnUse(usr)
+	local buff = {
+		Name = 				"Fluxay Buff";
+		Description = 		"武器攻击提高";
+		Stackable = 		false;
+		Bonus = {
+			{ATTR_WEAPON_DAMAGE, IS_RATIO, 40.0};
+		};
+	};
+
+	--判断与上次攻击目标不同，才加该buff
+	if usr.GetEntity().m_curAttack != usr.GetEntity().m_lastAttack then
+		usr:AddBuff(Buff.CreateBuff(buff))
+	end
+
+	print("FluxaySword Used");
+end

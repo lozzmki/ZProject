@@ -1,0 +1,41 @@
+require "Assets.Scripts.Lua.Items.Header" --定义了一些常量
+--文件名为注册名
+--物品的属性表
+properties = {
+	Name =					"Compound";--物品名
+	Type =					ITEM_PARTS;
+	Damage = 				10.0;
+	Weight = 				0.0; 
+	Mesh = 					"Shell";--物品模型文件名
+	Ammo = 					"Default";--子弹预制体名,
+	Bonus = {
+
+	};
+	Description = 			"不稳定化合物 配件 攻击命中或者投射物消失时会产生50%攻击力的爆炸，附带攻击效果，对同一目标有1s冷却(高级掉落装备)";
+}
+
+--使用时调用，usr为使用者ID
+function OnUse(usr)
+	print("Elastic Used");
+end
+
+function OnHit(enemy)
+	local buff = {
+		Name = 					"Compound Buff";
+		Description = 			"爆炸";
+		Stackable = 			false;
+		OnDamaged = function(inter, damage)
+			--GetPower() 获取当前发射者的所有攻击力（包括自身攻击力和武器攻击力）
+			--调用爆炸，设置大小为 inter.GetPower()*0.5
+			--攻击效果
+		end;
+	};
+
+	--同一攻击目标则设置cd时间，否则cd为0
+	if enemy.GetEntity().m_curAttack == enemy.GetEntity().m_lastAttack then
+		enemy.SetColdDown(1.0);
+	else
+		enemy.SetColdDown(0.0);
+	end
+	enemy:AddBuff(Buff.CreateBuff(buff));
+end

@@ -1,0 +1,48 @@
+require "Assets.Scripts.Lua.Items.Header" --定义了一些常量
+--文件名为注册名
+--物品的属性表
+properties = {
+	Name =					"Pulsar";--物品名
+	Type =					ITEM_WEAPON;
+	ShotType = 				WEAPON_LASER;
+	AttackSpeed = 			10.0;
+	EnergyCost = 			0.0;
+	FirePower = 			15.0;
+	Weight = 				10.0;
+	Mesh = 					"Shell";--模型文件名
+	Bonus = {
+		{ATTR_MAX_HP, IS_RATIO, 10.0};--{属性，是否是比例，值}
+		{ATTR_MAX_EN, IS_FIXED, 20.0};
+	};
+	Description = 			"脉冲星核 激光枪 攻击状态下累计时间，每满5s，向面前大范围进行一次1000%武器攻击的电磁冲击，并将击中的目标麻痹1s(稀有 掉落)";
+}
+
+--使用时调用，c为数据缓存
+function OnUse(c)
+	print("Pulsar Used");
+end
+
+function OnUpdate(c,deltaTime)
+	local AttackTime = 0;
+	if c.GetEntity().m_attackState == true then 
+		AttackTime += deltaTime
+	end
+	if AttackTime >= 5 then
+		--加大小为 c.GetBonus()[ATTR_WEAPON_DAMAGE]*10.0的电磁冲击
+		AttackTime = 0;
+	end
+end
+
+function OnHit(enemy)
+	local buff = {
+		Name = 					"Pulsar Buff";
+		Description = 			"目标麻痹";
+		Duration = 				1.0;
+		Stackable = 			false;
+		OnDamaged = function(inter, damage)
+			--控制敌方状态机的SetBool函数（参数变量名称，修改的状态值）
+			--enemy的lostControl状态
+		end;
+	};
+	enemy:AddBuff(Buff.CreateBuff(buff));
+end

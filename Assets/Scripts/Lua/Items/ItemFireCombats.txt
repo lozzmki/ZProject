@@ -1,0 +1,29 @@
+require "Assets.Scripts.Lua.Items.Header" --定义了一些常量
+--文件名为注册名
+--物品的属性表
+properties = {
+	Name =					"FireCombats";--物品名
+	Type =					ITEM_ARMOR;
+	Armor = 				1.0; --提升1点防御值
+	Weight = 				5.0; 
+	Mesh = 					"Shell";--模型文件名
+	Bonus = {
+		{ATTR_MAX_HP, IS_RATIO, 10.0};
+		{ATTR_MAX_EN, IS_FIXED, 20.0};
+	};
+	Description = 			"火控战斗服 护甲 提升1点防御，武器能量消耗降低10%（初始）";
+}
+
+function OnUse(usr)
+	local buff = {
+		Name = 				"FireCombats Buff";
+		Description = 		"降低能量消耗";
+		Stackable = 		false;
+		OnAttach = function(inter)
+			--拿到该entity上所有item的energyCost的和 再*0.9
+			inter.GetEntity().m_Properties[MAX_EN] = inter.GetEntity().m_Properties[MAX_EN]*0.9;
+		end;
+	};
+	usr:AddBuff(Buff.CreateBuff(buff));
+	print("FireCombats Used");
+end

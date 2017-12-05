@@ -1,0 +1,32 @@
+require "Assets.Scripts.Lua.Items.Header" --定义了一些常量
+--文件名为注册名
+--物品的属性表
+properties = {
+	Name =					"Depositor";--物品名
+	Type =					ITEM_PARTS;
+	Damage = 				0.0;
+	Weight = 				5.0; 
+	Mesh = 					"Shell";--物品模型文件名
+	Ammo = 					"Default";--子弹预制体名,
+	Description = 			"沉积器 配件 使投射物可以穿透并额外攻击一个目标(高级掉落装备)";
+}
+
+--使用时调用，usr为使用者ID
+function OnUse(usr)
+	print("Depositor Used");
+end
+
+--额外攻击一个目标，让其穿透后继续伤害
+function OnHit(enemy)
+	local buff = {
+		Name = 				"Depositor Buff";
+		Description = 		"穿透目标";
+		Duration = 			0.5; --为了让子弹能穿透，设置敌人0.5s可穿透状态
+		Stackable = 		false;
+		OnDamage = function(inter, damage)
+			--提供设置敌人trigger方法
+			--enemy.gameObject.GetComponent<Collider>().IsTrigger = true;
+		end;
+	};
+	enemy:AddBuff(Buff.CreateBuff(buff));
+end

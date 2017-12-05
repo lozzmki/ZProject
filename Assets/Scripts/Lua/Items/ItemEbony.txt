@@ -1,0 +1,20 @@
+require "Assets.Scripts.Lua.Items.Header" --定义了一些常量
+--文件名为注册名
+--物品的属性表
+properties = {
+	Name =					"Ebony";--物品名
+	Type =					ITEM_PARTS;
+	Damage = 				1.0;
+	Weight = 				10.0; 
+	Mesh = 					"Shell";--物品模型文件名
+	Ammo = 					"Default";--子弹预制体名,
+	Bonus = {
+		{ATTR_MELEE_POWER, IS_FIXED, 2.0};
+	};
+	Description = 			"乌木,普通掉落物品（基础）";
+}
+
+--使用时调用，usr为使用者ID
+function OnUse(usr)
+	print("Ebony Used");
+end

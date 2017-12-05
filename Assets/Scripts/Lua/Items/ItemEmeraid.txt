@@ -1,0 +1,46 @@
+require "Assets.Scripts.Lua.Items.Header" --定义了一些常量
+--文件名为注册名
+--物品的属性表
+properties = {
+	Name =					"Emeraid";--物品名
+	Type =					ITEM_WEAPON;
+	ShotType = 				WEAPON_LASER;
+	AttackSpeed = 			15.0;
+	EnergyCost = 			1.0;
+	FirePower = 			20.0;
+	Weight = 				5.0;
+	Mesh = 					"Shell";--模型文件名
+	Bonus = {
+		{ATTR_MAX_HP, IS_RATIO, 10.0};--{属性，是否是比例，值}
+		{ATTR_MAX_EN, IS_FIXED, 20.0};
+		{ATTR_MELEE_POWER, IS_FIXED, 10.0};
+		{ATTR_RANGE_POWER, IS_RATIO, 20.0};
+	};
+	Description = 			"Emerald 激光枪 超载模式（模式可以随时开启和关闭）：提高100%武器能量消耗和50%武器攻击力(高级掉落装备)";
+}
+
+function OnUse(usr)
+	local buff = {
+		Name = 				"Emeraid Buff";
+		Description = 		"提高武器能量消耗";
+		Stackable = 		false;
+		Bonus = {
+			{ATTR_WEAPON_DAMAGE, IS_RATIO, 50.0}; -- 提高50%武器攻击
+		};
+		OnAttach = function(inter)
+			usr.GetEntity().m_fEnergy -= usr.GetItem().m_EnergyCost * 2.0; --提高武器能量消耗
+		end;
+	};
+
+	--是否是超载模式
+	--add get method
+	if usr.GetOverLoadState() then
+	   usr:AddBuff(Buff.CreateBuff(buff));
+	end
+
+	print("Emerald Used");
+end
+
+--该buff模式为该装备的超载模式，可以开启／关闭
+function OnHit(enemy)
+end

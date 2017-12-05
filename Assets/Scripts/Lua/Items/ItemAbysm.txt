@@ -1,0 +1,60 @@
+require "Assets.Scripts.Lua.Items.Header"
+properties = {
+	Name =            "Abysm"; --物品名
+	Type =            ITEM_WEAPEN;
+	ShotType =        WEAPON_AUTO;
+	EnergyCost =      0.0; 
+	AttackSpeed =     20.0;
+	FirePower =       20.0;
+	Weight =          20.0;
+	Mesh =            "Shell"; --模型文件
+	Bonus ={
+
+	};
+	Description = "深寒 霰弹枪 攻击命中目标使其移动速度降低1%，持续1s，最多叠加99层。消耗25能量，使自身周围所有带有深寒效果的目标进入冻结状态，持续（0.1*层数）s，并造成（层数*20+50）%武器攻击的伤害(稀有 掉落)";
+}
+
+function OnUse(usr)
+    print("Abysm Used");
+end
+
+function OnUpdate(c,deltaTime)
+	local buff = {
+		Name = 				"AbysmFreeze Buff";
+		Description = 		"周边物体被冻结";
+		Duration = 			c.GetStackNum() * 0.1;
+		Stackable = 		true;
+		MaxStackNum = 		99;
+		Bonus = {
+			{ATTR_MAX_HP, IS_RATIO, -c.GetBonus().ATTR_WEAPON_DAMAGE * (c.GetStackNum()*20.0+50.0)};
+			{ATTR_MAX_EN, IS_FIXED, -30.0};
+		};
+		OnAttach = function(inter)
+			--修改状态机lostControl状态值
+		end;
+	};
+
+	--搜索飞行中的子弹附近x远的敌人，对其应用该buff
+	attackable = c.shell.findEnemy(3.0);
+
+	--当子弹不存在时，也不附加该buff
+	if attackable != nil then
+		for i = 1,table.getn(attackable) do 
+			attackable[i]:AddBuff(Buff.CreateBuff(buff));
+		end
+	end
+end
+
+function OnHit(enemy)
+	local buff = {
+		Name = 				"AbysmSpeed Buff";
+		Description = 		"降低移动速度";
+		Duration = 			1.0;
+		MaxStackNum = 		99;
+		Stackable = 		true;
+		Bonus = {
+			{ATTR_SPEED, IS_RATIO, -1.0}; --降低1%的移速
+		};
+	};
+	enemy:AddBuff(Buff.CreateBuff(buff)); --应用于被命中的敌人
+end
