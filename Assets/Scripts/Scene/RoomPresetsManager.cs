@@ -95,4 +95,10 @@ public class RoomPresetsManager {
         int _tmp = Random.Range(0, m_Presets.Count);
         return m_Presets[_tmp];
     }
+
+    public void LoadPreset(string file)
+    {
+
+    }
+
 }

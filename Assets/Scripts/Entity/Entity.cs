@@ -66,6 +66,8 @@ public class Entity : MonoBehaviour {
     public int m_Coins;
     public float m_MaxCarrying;
 
+    public BuffManager m_Buffs;
+
     //tags, for coding..
     public const int MAX_HP = 0;
     public const int MAX_EN = 1;
@@ -76,40 +78,40 @@ public class Entity : MonoBehaviour {
 
     public DProperty[] m_Properties;
     private float m_fBurden;
+
+    private EntityInterface _m_interface;
+    public EntityInterface m_Interface
+    {
+        get
+        {
+            if (_m_interface == null)
+                _m_interface = new EntityInterface(this);
+            return _m_interface;
+        }
+    }
+
     // Use this for initialization
-    void Start () {
+    void Start() {
         m_Properties = new DProperty[6];
-        m_Properties[SPEED].d_Value = 8;//for test
+        m_Buffs = new BuffManager(this);
 
-        gameObject.GetComponent<Transceiver>().AddResolver("Move", MoveTowards);
+        //for test
+        m_Properties[SPEED].d_Value = 1;
+        m_Properties[ARMOR].d_Value = 10;
+        m_Properties[MAX_HP].d_Value = 200;
+        m_fHp = 200;
+        //for test end
+
         gameObject.GetComponent<Transceiver>().AddResolver("Damage", Damage);
-        //init from lua script
-        
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
-    public void MoveTowards(DSignal signal){
-        Vector3 vDirection = (Vector3)signal._arg1;
-        //Position
-        gameObject.transform.position += vDirection.normalized * m_Properties[SPEED].d_Value * Time.deltaTime;
-        //Rotation
-        //         Vector3 _vTurn = gameObject.transform.InverseTransformDirection(vDirection);
-        //         float _fAngle = Mathf.Atan2(_vTurn.x, _vTurn.z) * Mathf.Rad2Deg;
-        //         float _fRotation = 3500.0f * Time.deltaTime;
-        // 
-        //         if (Mathf.Abs(_fAngle) < _fRotation)
-        //             _fRotation = _fAngle;
-        //         else {
-        //             if (_fAngle < 0.0f)
-        //                 _fRotation = -_fRotation;
-        //         }
-        //         gameObject.transform.Rotate(0.0f, _fRotation, 0.0f);
-        gameObject.transform.forward = vDirection;
-        
+        //init from lua script
+
+    }
+
+
+    private void Update()
+    {
+        m_Buffs.Update();
     }
 
     public void ApplyBonus(DAttributeBonus dBonus)
@@ -133,11 +135,36 @@ public class Entity : MonoBehaviour {
 
     public void Damage(DSignal signal)
     {
-        m_fHp -= System.Convert.ToSingle(signal._arg1);
+        float _fRatio = 100.0f / (100.0f + m_Properties[ARMOR].d_Value);
+        if (_fRatio > 10.0f || _fRatio < 0.0f)
+            _fRatio = 10.0f;
+
+        float _fDamage = System.Convert.ToSingle(signal._arg1) * _fRatio;
+        m_fHp -= _fDamage;
         if (m_fHp <= 0.0f) {
             Debug.Log(gameObject + " was killed by " + signal._sender);
             Destroy(gameObject);
+            if (gameObject.tag == "Player")//TODO:shouldn't be like this!!!!!!
+                Camera.main.GetComponent<GameInput>().m_Player = null;
         }
     }
 
+
+    [SLua.CustomLuaClass]
+    public class EntityInterface
+    {
+        [SLua.DoNotToLua]
+        public Entity m_Entity;
+
+        public EntityInterface(Entity ety = null)
+        {
+            m_Entity = ety;
+        }
+
+        public void AddBuff(Buff.BuffInterface buff)
+        {
+            if (m_Entity != null)
+                m_Entity.m_Buffs.AddBuff(buff.m_Buff);
+        }
+    }
 }

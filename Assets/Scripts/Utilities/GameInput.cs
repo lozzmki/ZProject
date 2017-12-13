@@ -18,7 +18,8 @@ public class GameInput : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        UpdatePlayer();
+        if (m_Player != null)//TODO:shouldn't be like this!!!!!!
+            UpdatePlayer();
         UpdateCamera();
     }
 
@@ -32,40 +33,29 @@ public class GameInput : MonoBehaviour {
         float _fAngle = Mathf.Deg2Rad * m_Angle;
         Vector3 _vXOZ = new Vector3(Mathf.Cos(_fAngle), -1.0f, Mathf.Sin(_fAngle));
         _vXOZ.y = -1.0f;
-        Vector3 _pos = m_Player.transform.position - 10.0f * _vXOZ;// + m_Player.forward * -2.0f;
-        this.transform.position = _pos;
-        this.transform.LookAt(m_Player.transform);
+        if(m_Player != null) {//TODO:shouldn't be like this!!!!!!
+            Vector3 _pos = m_Player.transform.position - 10.0f * _vXOZ;// + m_Player.forward * -2.0f;
+            this.transform.position = _pos;
+            this.transform.LookAt(m_Player.transform);
+        }
     }
     private void UpdatePlayer() {
         //Movement
         float _fHor = Input.GetAxis("Horizontal");
         float _fVer = Input.GetAxis("Vertical");
-        if (Mathf.Abs(_fHor) < 1e-4 && Mathf.Abs(_fVer) < 1e-4) {
+        Transceiver.SendSignal(new DSignal(gameObject, m_Player, "Joystick", _fHor, _fVer));
 
-        }
-        else {
-            Vector3 _vDirection;
-            Transform m_Cam = gameObject.transform;
-
-            _vDirection = Vector3.Scale(m_Cam.forward, new Vector3(1, 0, 1)).normalized * _fVer + _fHor * m_Cam.right;
-
-            Transceiver.SendSignal(new DSignal(gameObject, m_Player, "Move", _vDirection));
-        }
         //Fire
-        bool _bRangeFire = Input.GetKeyDown(KeyCode.Joystick1Button0);
-
-        if (_bRangeFire) {
-            if (m_Player.GetComponent<Inventory>().m_ItemForPick != null) {
-                Transceiver.SendSignal(new DSignal(gameObject, m_Player, "Pickup"));
-            }
-            Transceiver.SendSignal(new DSignal(gameObject, m_Player, "RangeFire"));
+        if (Input.GetKeyDown(KeyCode.Joystick1Button0) || Input.GetKeyDown(KeyCode.J)) {
+            Transceiver.SendSignal(new DSignal(gameObject, m_Player, "FireButton", true));
+            //if (m_Player.GetComponent<Inventory>().m_ItemForPick != null) {
+            //    Transceiver.SendSignal(new DSignal(gameObject, m_Player, "Pickup"));
+            //}
+            //Transceiver.SendSignal(new DSignal(gameObject, m_Player, "Fire"));
         }
-        else {
-            if (Input.GetKey(KeyCode.Joystick1Button0)) {
-                Transceiver.SendSignal(new DSignal(gameObject, m_Player, "RangeFire"));
-            }
+        else if (Input.GetKeyUp(KeyCode.Joystick1Button0) || Input.GetKeyUp(KeyCode.J)) {
+            Transceiver.SendSignal(new DSignal(gameObject, m_Player, "FireButton", false));
         }
-
         
     }
 }

@@ -6,7 +6,6 @@ using UnityEngine;
 public class luatest : MonoBehaviour {
     float _p = 0.0f;
 
-    
 
 	// Use this for initialization
 	void Start () {
@@ -24,9 +23,13 @@ public class luatest : MonoBehaviour {
 
         //Debug.Log(Resources.Load("Meshes/Shell"));
 
-        ObjectDictionary.GetItemDic().CreateObject("ItemRangePattern",
+        GameObject _obj = ObjectDictionary.GetItemDic().CreateObject("ItemRangePattern",
                  gameObject.transform.position + new Vector3(5.0f * Random.value, 0.0f, 5.0f * Random.value),
                  Quaternion.AngleAxis(0,Vector3.up));
+
+        ObjectDictionary.GetItemDic().CreateObject("ItemRangePattern",
+                 gameObject.transform.position + new Vector3(5.0f * Random.value, 0.0f, 5.0f * Random.value),
+                 Quaternion.AngleAxis(0, Vector3.up));
 
         ObjectDictionary.GetItemDic().CreateObject("ItemPartsPattern",
                  gameObject.transform.position + new Vector3(5.0f * Random.value, 0.0f, 5.0f * Random.value),
@@ -96,12 +99,34 @@ public class luatest : MonoBehaviour {
             W,W,W,W,W,D,W,W,W,W,W,D,W,
         };
 
-        RoomPresetsManager.GetInstance().AddPreset(_room1);
-        RoomPresetsManager.GetInstance().AddPreset(_room2);
-        RoomPresetsManager.GetInstance().AddPreset(_room3);
+        //RoomPresetsManager.GetInstance().AddPreset(_room1);
+        //RoomPresetsManager.GetInstance().AddPreset(_room2);
+        //RoomPresetsManager.GetInstance().AddPreset(_room3);
+        //test 
+        RoomPresetsManager.GetInstance().AddPreset(mapEditor.Output.GetPresetByMap("C:/Users/FLYPLUSSS/Desktop/ZProject-dev/maps/7x7.txt"));
 
         Stage _stage = MapGenerator.NewMap(100);
         _stage.CreateStage();
+
+
+        GameObject go = new GameObject("aaa");
+        go.AddComponent(typeof(ttest));
+        go.GetComponent<ttest>().tc = new testClass();
+        go.GetComponent<ttest>().tc.aa = 10;
+        go.GetComponent<ttest>().tc.bb = 10;
+        GameObject go2 = Instantiate(go);
+        go.GetComponent<ttest>().tc.aa = 20;
+        go.GetComponent<ttest>().tc.bb = 20;
+        GameObject go3 = Instantiate(go);
+        go.GetComponent<ttest>().tc.aa = 30;
+        go.GetComponent<ttest>().tc.bb = 30;
+
+        Debug.Log(go.GetComponent<ttest>().tc.aa);
+        Debug.Log(go.GetComponent<ttest>().tc.bb);
+        Debug.Log(go2.GetComponent<ttest>().tc.aa);
+        Debug.Log(go2.GetComponent<ttest>().tc.bb);
+        Debug.Log(go3.GetComponent<ttest>().tc.aa);
+        Debug.Log(go3.GetComponent<ttest>().tc.bb);
     }
 
     // Update is called once per frame
