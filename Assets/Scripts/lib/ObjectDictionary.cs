@@ -43,6 +43,7 @@ public class ObjectDictionary{
     {
         if (s_Dic.ContainsKey(sName)) {
             GameObject _obj = GameObject.Instantiate(s_Dic[sName], pos, rotation);
+            Transceiver.SendSignal(new DSignal(null, s_Dic[sName], "Duplicate", _obj));
             return _obj;
         }
         return null;

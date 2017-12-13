@@ -3,10 +3,11 @@ require "Assets.Scripts.Lua.Items.Header" --定义了一些常量
 --物品的属性表
 properties = {
 	Name =					"TestItem2";--物品名
-	Type =					ITEM_MELEE;
-	ShotType = 				SHOT_AUTO;
+	Type =					ITEM_WEAPON;
+	ShotType = 				WEAPON_MELEE;
+	EnergyCost = 			0.0;
 	AttackSpeed = 			666.0;
-	Damage = 				999.0;
+	FirePower = 			999.0;
 	Weight = 				999.0;
 	Mesh = 					"Shell";--模型文件名
 	Bonus = {
