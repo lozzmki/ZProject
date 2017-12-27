@@ -58,16 +58,23 @@ public class BaseController : MonoBehaviour {
             if (_inv.m_ItemForPick != null) {
                 Transceiver.SendSignal(new DSignal(gameObject, gameObject, "Pickup"));
             }
-            Item _weapon = _inv.GetWeapon();
-            if (_weapon == null)
-                return;
+            if (!Globe.netMode)
+            {
+                Item _weapon = _inv.GetWeapon();
+                if (_weapon == null)
+                    return;
 
-            if (_weapon.m_WeaponType == WeaponType.WEAPON_MELEE) {
-                m_Animator.SetBool("melee", true);
+                if (_weapon.m_WeaponType == WeaponType.WEAPON_MELEE)
+                {
+                    m_Animator.SetBool("melee", true);
+                }
+                else
+                {
+                    m_Animator.SetBool("range", true);
+                }
             }
-            else {
-                m_Animator.SetBool("range", true);
-            }
+            m_Animator.SetBool("range", true);
+
         }
         else {
             m_Animator.SetBool("melee", true);

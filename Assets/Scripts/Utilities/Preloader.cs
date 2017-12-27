@@ -8,7 +8,7 @@ using UnityEngine;
 public class Preloader : MonoBehaviour {
 
 	[RuntimeInitializeOnLoadMethod]
-    static void Initialize()
+    public static void Initialize()
     {
         CheckUpdates();
         LoadObjects();
@@ -20,7 +20,7 @@ public class Preloader : MonoBehaviour {
         //not tested on real device yet
 
         //Items
-        DirectoryInfo _info = new DirectoryInfo("Assets/Scripts/Lua/Items");
+        DirectoryInfo _info = new DirectoryInfo("./Assets/Scripts/Lua/Items");
         FileInfo[] _files = _info.GetFiles("*.txt");
         for (int i = 0; i < _files.Length; i++) {
             string _sName = _files[i].Name.Split('.')[0];

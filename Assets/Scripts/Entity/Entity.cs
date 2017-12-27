@@ -76,7 +76,7 @@ public class Entity : MonoBehaviour {
     public const int ARMOR = 4;
     public const int SPEED = 5;
 
-    public DProperty[] m_Properties;
+    public DProperty[] m_Properties ;
     private float m_fBurden;
 
     private EntityInterface _m_interface;
@@ -90,13 +90,19 @@ public class Entity : MonoBehaviour {
         }
     }
 
-    // Use this for initialization
-    void Start() {
+    private void Awake()
+    {
         m_Properties = new DProperty[6];
         m_Buffs = new BuffManager(this);
+    }
 
+    // Use this for initialization
+    void Start() {
         //for test
-        m_Properties[SPEED].d_Value = 1;
+        if(!Globe.netMode)
+        {
+            m_Properties[SPEED].d_Value = 8;
+        }
         m_Properties[ARMOR].d_Value = 10;
         m_Properties[MAX_HP].d_Value = 200;
         m_fHp = 200;

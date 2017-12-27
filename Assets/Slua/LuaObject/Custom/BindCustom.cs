@@ -8,6 +8,7 @@ namespace SLua {
 				Lua_Entity_EntityInterface.reg,
 				Lua_Item_ItemInterface.reg,
 				Lua_LuaCache.reg,
+				Lua_LuaKit.reg,
 				Lua_Buff_BuffInterface.reg,
 				Lua_System_Collections_Generic_List_1_int.reg,
 				Lua_System_Collections_Generic_Dictionary_2_int_string.reg,

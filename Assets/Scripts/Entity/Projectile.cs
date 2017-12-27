@@ -32,7 +32,7 @@ public class Projectile : MonoBehaviour {
     private float m_fLife = 10.0f;
     private HashSet<int> m_Set;
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         m_Set = new HashSet<int>();
 	}
 	
@@ -40,12 +40,22 @@ public class Projectile : MonoBehaviour {
 	void Update () {
         m_fLife -= Time.deltaTime;
         if(m_fLife < 0.0f) {
-            Destroy(gameObject);
+            Safe_Destroy();
         }
 
         //movement
         gameObject.transform.position += gameObject.transform.forward.normalized * m_Speed * Time.deltaTime;
 	}
+
+    private void Safe_Destroy()
+    {
+        if (Globe.netMode)
+        {
+            GetComponent<SyncPosRot>().entity.renderObj = null;
+            GetComponent<SyncPosRot>().entity.cellCall("reqDestroySelf");
+        }
+        Destroy(gameObject);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -68,7 +78,7 @@ public class Projectile : MonoBehaviour {
                     m_Parts.Hit(other.gameObject.GetComponent<Entity>());
 
                 if (m_Set.Count >= m_MaxTargetNum) {
-                    Destroy(gameObject);
+                    Safe_Destroy();
                 }
             }
             

@@ -1,94 +1,894 @@
 Initialize engine version: 5.5.2f1 (3829d7f588f3)
 GfxDevice: creating device client; threaded=1
 Direct3D:
-    Version:  Direct3D 11.0 [level 11.1]
-    Renderer: Intel(R) HD Graphics 620 (ID=0x5916)
-    Vendor:   Intel
-    VRAM:     2111 MB
-    Driver:   21.20.16.4727
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 860M (ID=0x1392)
+    Vendor:   NVIDIA
+    VRAM:     2018 MB
+    Driver:   21.21.13.7654
 Begin MonoManager ReloadAssembly
-Platform assembly: E:\Unity\Game\test_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading E:\Unity\Game\test_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: E:\Unity\Game\test_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
-Loading E:\Unity\Game\test_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
-Platform assembly: E:\Unity\Game\test_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading E:\Unity\Game\test_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-Platform assembly: E:\Unity\Game\test_Data\Managed\UnityEngine.UI.dll (this message is harmless)
-Loading E:\Unity\Game\test_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-Platform assembly: E:\Unity\Game\test_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
-Loading E:\Unity\Game\test_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-Platform assembly: E:\Unity\Game\test_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
-Loading E:\Unity\Game\test_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
-Platform assembly: E:\Unity\Game\test_Data\Managed\BytesHelper.dll (this message is harmless)
-Loading E:\Unity\Game\test_Data\Managed\BytesHelper.dll into Unity Child Domain
-- Completed reload, in  0.446 seconds
-Platform assembly: E:\Unity\Game\test_Data\Managed\System.Core.dll (this message is harmless)
-Platform assembly: E:\Unity\Game\test_Data\Managed\System.dll (this message is harmless)
-desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
+Platform assembly: G:\GitHub\newgame-master\test_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading G:\GitHub\newgame-master\test_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: G:\GitHub\newgame-master\test_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading G:\GitHub\newgame-master\test_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: G:\GitHub\newgame-master\test_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading G:\GitHub\newgame-master\test_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: G:\GitHub\newgame-master\test_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading G:\GitHub\newgame-master\test_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: G:\GitHub\newgame-master\test_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading G:\GitHub\newgame-master\test_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: G:\GitHub\newgame-master\test_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
+Loading G:\GitHub\newgame-master\test_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
+Platform assembly: G:\GitHub\newgame-master\test_Data\Managed\BytesHelper.dll (this message is harmless)
+Loading G:\GitHub\newgame-master\test_Data\Managed\BytesHelper.dll into Unity Child Domain
+- Completed reload, in  0.033 seconds
+Platform assembly: G:\GitHub\newgame-master\test_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: G:\GitHub\newgame-master\test_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
+XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 2.306985 ms
-Shell (UnityEngine.GameObject)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-tesst
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Platform assembly: E:\Unity\Game\test_Data\Managed\Mono.Security.dll (this message is harmless)
-Can't find Items/ItemArmorPattern
+UnloadTime: 1.342415 ms
+Platform assembly: G:\GitHub\newgame-master\test_Data\Managed\Mono.Security.dll (this message is harmless)
+Can't find Items/CubeAmmo
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 NullReferenceException: Object reference not set to an instance of an object
   at Item.InitFromLuaFile () [0x00000] in <filename unknown>:0 
-  at Item.Start () [0x00000] in <filename unknown>:0 
+  at Preloader.LoadObjects () [0x00000] in <filename unknown>:0 
+  at Preloader.Initialize () [0x00000] in <filename unknown>:0 
  
 (Filename:  Line: -1)
 
-tesst
+Load Network Client application
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Can't find Items/ItemMeleePattern
+clientapp::start()
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-NullReferenceException: Object reference not set to an instance of an object
-  at Item.InitFromLuaFile () [0x00000] in <filename unknown>:0 
-  at Item.Start () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-tesst
+[2017-12-27 20:23:43 278] loadFile: C:/Users/beyondray/AppData/LocalLow/DefaultCompany/Game/kbengine.digest.1.1.0.0.1.0.127.0.0.1.20013, datasize=64
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Can't find Items/ItemPartsPattern
+[2017-12-27 20:23:43 283] loadFile: C:/Users/beyondray/AppData/LocalLow/DefaultCompany/Game/loginapp_clientMessages.A16A7477E55D6AEDCD48345D2B50A66512A401F10DEAFA6EE2134239819B8C02.1.1.0.0.1.0.127.0.0.1.20013, datasize=2309
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-NullReferenceException: Object reference not set to an instance of an object
-  at Item.InitFromLuaFile () [0x00000] in <filename unknown>:0 
-  at Item.Start () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-tesst
+[2017-12-27 20:23:43 285] loadFile: C:/Users/beyondray/AppData/LocalLow/DefaultCompany/Game/baseapp_clientMessages.A16A7477E55D6AEDCD48345D2B50A66512A401F10DEAFA6EE2134239819B8C02.1.1.0.0.1.0.127.0.0.1.20013, datasize=485
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Can't find Items/ItemRangePattern
+[2017-12-27 20:23:43 286] loadFile: C:/Users/beyondray/AppData/LocalLow/DefaultCompany/Game/serverErrorsDescr.A16A7477E55D6AEDCD48345D2B50A66512A401F10DEAFA6EE2134239819B8C02.1.1.0.0.1.0.127.0.0.1.20013, datasize=2460
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-NullReferenceException: Object reference not set to an instance of an object
-  at Item.InitFromLuaFile () [0x00000] in <filename unknown>:0 
-  at Item.Start () [0x00000] in <filename unknown>:0 
+[2017-12-27 20:23:43 287] loadFile: C:/Users/beyondray/AppData/LocalLow/DefaultCompany/Game/clientEntityDef.A16A7477E55D6AEDCD48345D2B50A66512A401F10DEAFA6EE2134239819B8C02.1.1.0.0.1.0.127.0.0.1.20013, datasize=1995
  
-(Filename:  Line: -1)
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 289] KBEngine::resetMessages()
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 292] KBEngine::Client_onImportClientMessages: start currserver=loginapp(msgsize=71)...
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 294] KBEngine::onImportClientMessagesCompleted: successfully! currserver=loginapp, currstate=
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 295] KBEngine::Client_onImportClientMessages: start currserver=baseapp(msgsize=13)...
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 296] KBEngine::onImportClientMessagesCompleted: successfully! currserver=baseapp, currstate=
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 297] KBEngine::onImportEntityDefCompleted: successfully!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 301] KBEngine::createDataTypeFromStreams: importAlias(size=28)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 302] KBEngine::Client_onImportClientEntityDef: importAlias(UINT8:ENTITY_SUBSTATE:1)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 303] KBEngine::Client_onImportClientEntityDef: importAlias(UINT16:UINT16:2)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 303] KBEngine::Client_onImportClientEntityDef: importAlias(UINT64:UID:3)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 304] KBEngine::Client_onImportClientEntityDef: importAlias(UINT32:ENTITY_UTYPE:4)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 304] KBEngine::Client_onImportClientEntityDef: importAlias(INT8:ENTITY_STATE:5)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 305] KBEngine::Client_onImportClientEntityDef: importAlias(INT16:INT16:6)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 305] KBEngine::Client_onImportClientEntityDef: importAlias(INT32:ENTITY_FORBIDS:7)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 306] KBEngine::Client_onImportClientEntityDef: importAlias(INT64:INT64:8)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 307] KBEngine::Client_onImportClientEntityDef: importAlias(STRING:STRING:9)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 307] KBEngine::Client_onImportClientEntityDef: importAlias(UNICODE:NAME:10)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 308] KBEngine::Client_onImportClientEntityDef: importAlias(FLOAT:FLOAT:11)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 308] KBEngine::Client_onImportClientEntityDef: importAlias(DOUBLE:DOUBLE:12)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 309] KBEngine::Client_onImportClientEntityDef: importAlias(PYTHON:UID1:13)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 309] KBEngine::Client_onImportClientEntityDef: importAlias(PY_DICT:PY_DICT:14)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 310] KBEngine::Client_onImportClientEntityDef: importAlias(PY_TUPLE:PY_TUPLE:15)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 310] KBEngine::Client_onImportClientEntityDef: importAlias(PY_LIST:PY_LIST:16)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 311] KBEngine::Client_onImportClientEntityDef: importAlias(MAILBOX:MAILBOX:17)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 312] KBEngine::Client_onImportClientEntityDef: importAlias(BLOB:BLOB:18)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 312] KBEngine::Client_onImportClientEntityDef: importAlias(VECTOR2:VECTOR2:19)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 313] KBEngine::Client_onImportClientEntityDef: importAlias(VECTOR3:DIRECTION3D:20)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 313] KBEngine::Client_onImportClientEntityDef: importAlias(VECTOR4:VECTOR4:21)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 314] KBEngine::Client_onImportClientEntityDef: importAlias(ARRAY:ENTITY_FORBID_COUNTER:22)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 314] KBEngine::Client_onImportClientEntityDef: importAlias(ARRAY:ENTITYID_LIST:23)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 315] KBEngine::Client_onImportClientEntityDef: importAlias(FIXED_DICT:ROLE_INFO:24)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 316] KBEngine::Client_onImportClientEntityDef: importAlias(FIXED_DICT:ROLE_INFO_LIST:25)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 316] KBEngine::Client_onImportClientEntityDef: importAlias(ARRAY:_6504178398662164480value:26)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 317] KBEngine::Client_onImportClientEntityDef: importAlias(FIXED_DICT:MOVEOBJ_INFO:27)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 318] KBEngine::Client_onImportClientEntityDef: importAlias(ARRAY:MOVEOBJ_INFO_LIST:28)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 322] KBEngine::Client_onImportClientEntityDef: import(Account), propertys(3), clientMethods(3), baseMethods(4), cellMethods(0)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 324] KBEngine::Client_onImportClientEntityDef: import(MoveObj), propertys(10), clientMethods(0), baseMethods(0), cellMethods(1)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 326] KBEngine::Client_onImportClientEntityDef: import(Role), propertys(12), clientMethods(1), baseMethods(1), cellMethods(0)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 327] KBEngine::Client_onImportClientEntityDef: import(SceneAlloc), propertys(8), clientMethods(1), baseMethods(2), cellMethods(0)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 328] KBEngine::Client_onImportClientEntityDef: import(Projectile), propertys(12), clientMethods(0), baseMethods(0), cellMethods(1)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 329] KBEngine::onImportEntityDefCompleted: successfully!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 329] KBEngine::importMessagesFromMemoryStream(): is successfully!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:43 331] KBEThread::run()
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 5200 -> priority: 1 
+  Thread -> id: 5140 -> priority: 1 
+[2017-12-27 20:23:45 204] connect to 127.0.0.1:20013 ...
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:45 207] NetWorkInterface::_asyncConnect(), will connect to '127.0.0.1:20013' ...
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:45 212] NetWorkInterface::_asyncConnectCB(), connect to '127.0.0.1:20013' finish. error = ''
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:45 276] NetworkInterface::_onConnectionState(), connect to 127.0.0.1:20013 is success!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:45 278] Event::fireIn: event(onConnectionState) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:45 278] KBEngine::login_loginapp(): connect 127.0.0.1:20013 is success!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:45 378] KBEngine::Client_onHelloCB: verInfo(1.1.0), scriptVersion(0.1.0), srvProtocolMD5(A16A7477E55D6AEDCD48345D2B50A665), srvEntitydefMD5(12A401F10DEAFA6EE2134239819B8C02), + ctype(2)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:45 381] KBEngine::onImportClientMessagesCompleted: successfully! currserver=loginapp, currstate=login
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:45 383] KBEngine::login_loginapp(): send login! username=c
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:45 578] KBEngine::Client_onLoginSuccessfully: accountName(c), addr(10.82.25.197:20015), datas(0)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:45 579] NetworkInterface::reset(), close socket from '127.0.0.1:20013'
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:45 582] connect to 10.82.25.197:20015 ...
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:45 583] NetWorkInterface::_asyncConnect(), will connect to '10.82.25.197:20015' ...
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:45 584] NetWorkInterface::_asyncConnectCB(), connect to '10.82.25.197:20015' finish. error = ''
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:45 679] NetworkInterface::_onConnectionState(), connect to 10.82.25.197:20015 is success!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:45 680] Event::fireIn: event(onConnectionState) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:45 682] KBEngine::login_baseapp(): connect 10.82.25.197:20015 is successfully!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:45 779] KBEngine::Client_onHelloCB: verInfo(1.1.0), scriptVersion(0.1.0), srvProtocolMD5(B363447A744C7D8D9BBF49B8B8360068), srvEntitydefMD5(12A401F10DEAFA6EE2134239819B8C02), + ctype(6)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:45 782] KBEngine::onImportClientMessagesCompleted: successfully! currserver=baseapp, currstate=
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:45 784] KBEngine::onImportEntityDefCompleted: successfully!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:45 881] KBEngine::Client_onCreatedProxies: eid(2136), entityType(Account)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 4.419036 ms
+[2017-12-27 20:23:45 969] NetworkInterface::~NetworkInterface(), destructed!!!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+
+Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 1258.
+Total: 3.361171 ms (FindLiveObjects: 0.090249 ms CreateObjectMapping: 0.078570 ms MarkObjects: 3.182442 ms  DeleteObjects: 0.009201 ms)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 1.916826 ms
+
+Unloading 16 unused Assets to reduce memory usage. Loaded Objects now: 1368.
+Total: 4.350021 ms (FindLiveObjects: 0.065475 ms CreateObjectMapping: 0.053795 ms MarkObjects: 3.867629 ms  DeleteObjects: 0.362059 ms)
+
+[2017-12-27 20:23:47 795] KBEngine::Client_onEntityDestroyed: entity(2136)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:47 796] KBEngine::Client_onCreatedProxies: eid(2138), entityType(SceneAlloc)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+场景分配器初始化!!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:47 931] PacketReceiver::_asyncReceive(): waiting for space, Please adjust 'RECV_BUFFER_MAX'! retries=1
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:47 937] PacketReceiver::_asyncReceive(): waiting for space, Please adjust 'RECV_BUFFER_MAX'! retries=2
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:47 943] PacketReceiver::_asyncReceive(): waiting for space, Please adjust 'RECV_BUFFER_MAX'! retries=3
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:47 950] PacketReceiver::_asyncReceive(): waiting for space, Please adjust 'RECV_BUFFER_MAX'! retries=4
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:47 955] PacketReceiver::_asyncReceive(): waiting for space, Please adjust 'RECV_BUFFER_MAX'! retries=5
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:47 961] PacketReceiver::_asyncReceive(): waiting for space, Please adjust 'RECV_BUFFER_MAX'! retries=6
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:47 968] PacketReceiver::_asyncReceive(): waiting for space, Please adjust 'RECV_BUFFER_MAX'! retries=7
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:47 974] PacketReceiver::_asyncReceive(): waiting for space, Please adjust 'RECV_BUFFER_MAX'! retries=8
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:47 980] PacketReceiver::_asyncReceive(): waiting for space, Please adjust 'RECV_BUFFER_MAX'! retries=9
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:47 986] PacketReceiver::_asyncReceive(): waiting for space, Please adjust 'RECV_BUFFER_MAX'! retries=10
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:47 993] PacketReceiver::_asyncReceive(): waiting for space, Please adjust 'RECV_BUFFER_MAX'! retries=11
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:47 998] KBEngine::Client_onEntityDestroyed: entity(2138)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:47 999] KBEngine::Client_onCreatedProxies: eid(2137), entityType(Role)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:47 999] PacketReceiver::_asyncReceive(): waiting for space, Please adjust 'RECV_BUFFER_MAX'! retries=12
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+角色初始化!!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Role: onEnterWorld call
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 005] Event::fireOut: event(set_position) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+当前玩家[2137]进入游戏世界...
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 005] Event::fireOut: event(set_direction) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 006] PacketReceiver::_asyncReceive(): waiting for space, Please adjust 'RECV_BUFFER_MAX'! retries=13
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 007] Event::fireOut: event(set_level) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 009] KBEngine::Client_setSpaceData: spaceID(1), key(_mapping), value(spaces/newgame_space_data)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 010] KBEngine::addSpaceGeometryMapping: spaceID(1), respath(spaces/newgame_space_data)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 011] Event::fireOut: event(onSetSpaceData) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 012] KBEngine::Client_initSpaceData: spaceID(1), size(1)!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 013] PacketReceiver::_asyncReceive(): waiting for space, Please adjust 'RECV_BUFFER_MAX'! retries=14
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 013] Event::fireOut: event(set_direction) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 014] Event::fireOut: event(set_position) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 015] Event::fireOut: event(onEnterSpace) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 016] Event::fireOut: event(set_position) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 016] Event::fireOut: event(set_direction) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+可移动物体初始化!!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+MoveObj: onEnterWorld call
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 020] PacketReceiver::_asyncReceive(): waiting for space, Please adjust 'RECV_BUFFER_MAX'! retries=15
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 020] Event::fireOut: event(set_position) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 022] Event::fireOut: event(set_direction) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+可移动物体初始化!!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+MoveObj: onEnterWorld call
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 024] Event::fireOut: event(set_position) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 024] Event::fireOut: event(set_direction) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+可移动物体初始化!!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+MoveObj: onEnterWorld call
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 026] PacketReceiver::_asyncReceive(): waiting for space, Please adjust 'RECV_BUFFER_MAX'! retries=16
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 026] Event::fireOut: event(set_position) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 028] Event::fireOut: event(set_direction) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+可移动物体初始化!!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+MoveObj: onEnterWorld call
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 030] Event::fireOut: event(set_position) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 031] Event::fireOut: event(set_direction) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+可移动物体初始化!!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+MoveObj: onEnterWorld call
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 033] PacketReceiver::_asyncReceive(): waiting for space, Please adjust 'RECV_BUFFER_MAX'! retries=17
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 033] Event::fireOut: event(set_position) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 035] Event::fireOut: event(set_direction) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+可移动物体初始化!!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+加载场景(spaces/newgame_space_data)...
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+MoveObj: onEnterWorld call
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 038] Event::fireOut: event(set_position) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 039] Event::fireOut: event(set_direction) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 040] PacketReceiver::_asyncReceive(): waiting for space, Please adjust 'RECV_BUFFER_MAX'! retries=18
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+可移动物体初始化!!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+MoveObj: onEnterWorld call
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 042] Event::fireOut: event(set_position) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 043] Event::fireOut: event(set_direction) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+可移动物体初始化!!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+MoveObj: onEnterWorld call
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 044] Event::fireOut: event(set_position) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 045] Event::fireOut: event(set_direction) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+可移动物体初始化!!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+MoveObj: onEnterWorld call
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 046] Event::fireOut: event(set_position) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 047] PacketReceiver::_asyncReceive(): waiting for space, Please adjust 'RECV_BUFFER_MAX'! retries=19
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 047] Event::fireOut: event(set_direction) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+可移动物体初始化!!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+MoveObj: onEnterWorld call
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 049] Event::fireOut: event(set_position) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 049] Event::fireOut: event(set_direction) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+可移动物体初始化!!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+MoveObj: onEnterWorld call
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 051] Event::fireOut: event(set_position) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 052] Event::fireOut: event(set_direction) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 053] PacketReceiver::_asyncReceive(): waiting for space, Please adjust 'RECV_BUFFER_MAX'! retries=20
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+可移动物体初始化!!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+MoveObj: onEnterWorld call
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 055] Event::fireOut: event(set_position) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 056] Event::fireOut: event(set_direction) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+可移动物体初始化!!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+MoveObj: onEnterWorld call
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 057] Event::fireOut: event(set_position) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 058] Event::fireOut: event(set_direction) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+可移动物体初始化!!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+MoveObj: onEnterWorld call
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 059] Event::fireOut: event(set_position) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 060] PacketReceiver::_asyncReceive(): waiting for space, Please adjust 'RECV_BUFFER_MAX'! retries=21
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 060] Event::fireOut: event(set_direction) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+可移动物体初始化!!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+MoveObj: onEnterWorld call
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 100] Event::fireOut: event(set_position) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 101] Event::fireOut: event(set_direction) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+可移动物体初始化!!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+MoveObj: onEnterWorld call
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 103] Event::fireOut: event(set_position) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 104] Event::fireOut: event(set_direction) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+可移动物体初始化!!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+MoveObj: onEnterWorld call
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 108] Event::fireOut: event(set_position) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 109] Event::fireOut: event(set_direction) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+可移动物体初始化!!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+MoveObj: onEnterWorld call
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 110] Event::fireOut: event(set_position) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 111] Event::fireOut: event(set_direction) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+可移动物体初始化!!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+MoveObj: onEnterWorld call
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 113] Event::fireOut: event(set_position) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 114] Event::fireOut: event(set_direction) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+可移动物体初始化!!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+MoveObj: onEnterWorld call
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 115] Event::fireOut: event(set_position) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:48 116] Event::fireOut: event(set_direction) not found!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+clientapp::OnDestroy(): begin
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:50 270] KBEngineAppThread::destroy()
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:50 305] KBEngineAppThread::process(): break!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:50 306] KBEThread::end()
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:50 371] KBEngine::destroy()
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:50 371] NetworkInterface::reset(), close socket from '10.82.25.197:20015'
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:50 372] KBEngine::resetMessages()
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+clientapp::OnDestroy(): end
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:50 401] PacketSender::~PacketSender(), destroyed!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:50 402] PacketSender::~PacketSender(), destroyed!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:50 402] PacketReceiver::~PacketReceiver(), destroyed!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:50 403] PacketReceiver::~PacketReceiver(), destroyed!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:50 403] NetworkInterface::~NetworkInterface(), destructed!!!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:50 405] NetworkInterface::~NetworkInterface(), destructed!!!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+[2017-12-27 20:23:50 407] NetworkInterface::~NetworkInterface(), destructed!!!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+

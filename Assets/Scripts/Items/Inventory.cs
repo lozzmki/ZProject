@@ -16,11 +16,11 @@ public class Inventory : MonoBehaviour {
         gameObject.GetComponent<Transceiver>().AddResolver("Pickup", PickUpItem);
         gameObject.GetComponent<Transceiver>().AddResolver("ChangePrimary", ChangePrimary);
         gameObject.GetComponent<Transceiver>().AddResolver("ChangeParts", ChangeParts);
-        
+        gameObject.GetComponent<Transceiver>().AddResolver("onAmmoCreated", onAmmoCreated);
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
 		//make the equipped one showup
 
         
@@ -163,6 +163,23 @@ public class Inventory : MonoBehaviour {
             if (_cursor > 5) _cursor = 3;
             if (_cursor < 3) _cursor = 5;
         }
+    }
+
+    public void onAmmoCreated(DSignal signal)
+    {
+        Item _weapon = GetComponent<Inventory>().GetWeapon();
+        Item _parts = GetComponent<Inventory>().GetParts();
+        float _baseDmg = 0.0f;
+        if (_weapon != null) _baseDmg += _weapon.m_Damage;
+
+        //temporary, todo
+        GameObject _proj = signal._arg1 as GameObject;
+        _proj.transform.forward = transform.forward;
+        _proj.GetComponent<Projectile>().m_Master = gameObject;
+        _proj.GetComponent<Projectile>().m_Damage += (_baseDmg + transform.GetComponent<Entity>().m_Properties[Entity.RANGE_POWER].d_Value);
+        _proj.GetComponent<Projectile>().m_Speed = 30.0f;
+        _proj.GetComponent<Projectile>().m_Weapon = _weapon;
+        _proj.GetComponent<Projectile>().m_Parts = _parts;
     }
 
     public Item GetWeapon()

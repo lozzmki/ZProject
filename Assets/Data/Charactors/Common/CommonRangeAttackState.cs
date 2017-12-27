@@ -73,8 +73,46 @@ public class CommonRangeAttackState : StateMachineBehaviour {
         }
     }
 
+
+    public static void Net_RangeFire(GameObject _obj)
+    {
+
+        Item _weapon = _obj.GetComponent<Inventory>().GetWeapon();
+        Item _parts = _obj.GetComponent<Inventory>().GetParts();
+
+        //if (_weapon != null)
+        //{
+        //    if (!_weapon.IfCooled)
+        //        return;
+        //    _weapon.Attack();
+
+            Vector3 euler = Quaternion.AngleAxis(0.0f, Vector3.up).eulerAngles;
+            Vector3 dir = Vector3Ex.ToDir(euler);
+            string resName = _parts != null ? _parts.m_Projectile : "Default";
+            //System.UInt32 shotType = (System.UInt32)_weapon.m_WeaponType;
+            System.UInt32 shotType = (System.UInt32)WeaponType.WEAPON_SPREAD;
+            int masterId = _obj.GetComponent<SyncPosRot>().entity.id;
+            KBEngine.Event.fireIn("reqRangeFire", masterId, resName, shotType, _obj.transform.position, dir);
+
+        //}
+    }
+
+    public override void OnStateEnter(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
+    {
+        if(Globe.netMode)
+        {
+            GameObject obj = animator.gameObject;
+            Net_RangeFire(obj);
+        }
+
+    }
+
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        RangeAttack(animator.gameObject);
+        GameObject obj = animator.gameObject;
+        if(!Globe.netMode)
+        {
+            RangeAttack(obj);
+        }
     }
 }
