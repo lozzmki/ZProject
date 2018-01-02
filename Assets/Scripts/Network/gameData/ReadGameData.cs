@@ -8,7 +8,7 @@ public class ReadGameData : MonoBehaviour {
     {
         //NetMode
         if (!PlayerPrefs.HasKey("NetMode"))
-            Globe.netMode = false;
+            Globe.netMode = true;
         else
             Globe.netMode = PlayerPrefs.GetInt("NetMode") > 0;
 

@@ -29,7 +29,7 @@ public class Projectile : MonoBehaviour {
     public GameObject m_Master;
     public Item m_Weapon;
     public Item m_Parts;
-    private float m_fLife = 10.0f;
+    private float m_fLife = 5.0f;
     private HashSet<int> m_Set;
 	// Use this for initialization
 	void Awake () {
@@ -47,7 +47,7 @@ public class Projectile : MonoBehaviour {
         gameObject.transform.position += gameObject.transform.forward.normalized * m_Speed * Time.deltaTime;
 	}
 
-    private void Safe_Destroy()
+    public void Safe_Destroy()
     {
         if (Globe.netMode)
         {

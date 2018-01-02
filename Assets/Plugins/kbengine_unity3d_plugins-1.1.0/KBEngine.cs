@@ -1228,6 +1228,8 @@
 		
 		public void Client_onReqAccountResetPasswordCB(UInt16 failcode)
 		{
+            Event.fireOut("onAccountResetPassword", new object[] { failcode });
+
 			if(failcode != 0)
 			{
 				Dbg.ERROR_MSG("KBEngine::Client_onReqAccountResetPasswordCB: " + username + " is failed! code=" + failcode + "!");
@@ -1252,7 +1254,9 @@
 
 		public void Client_onReqAccountBindEmailCB(UInt16 failcode)
 		{
-			if(failcode != 0)
+            Event.fireOut("onBindAccountMail", new object[] { failcode });
+
+            if (failcode != 0)
 			{
 				Dbg.ERROR_MSG("KBEngine::Client_onReqAccountBindEmailCB: " + username + " is failed! code=" + failcode + "!");
 				return;
@@ -1276,6 +1280,8 @@
 
 		public void Client_onReqAccountNewPasswordCB(UInt16 failcode)
 		{
+            Event.fireOut("onNewPasswordModify", new object[] { failcode });
+
 			if(failcode != 0)
 			{
 				Dbg.ERROR_MSG("KBEngine::Client_onReqAccountNewPasswordCB: " + username + " is failed! code=" + failcode + "!");

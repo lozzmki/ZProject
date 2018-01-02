@@ -11,7 +11,7 @@ public class CommonMoveAttackState : StateMachineBehaviour {
         if (Globe.netMode)
         {
             GameObject obj = animator.gameObject;
-            //CommonRangeAttackState.Net_RangeFire(obj);
+            CommonRangeAttackState.Net_RangeFire(obj);
         }
     }
 
