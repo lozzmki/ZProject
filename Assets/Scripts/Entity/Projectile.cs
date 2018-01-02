@@ -22,17 +22,27 @@ public enum ProjectileType {
 /// Projectile
 /// 
 /// </summary>
+[RequireComponent(typeof(Rigidbody))]
 public class Projectile : MonoBehaviour {
-    [HideInInspector]public float m_Damage = 0;
-    [HideInInspector]public float m_Speed = 30.0f;
+
+    #region Properties
+    public float m_Damage = 0;
+    public float m_Speed = 30.0f;
+    public ProjectileType m_nType = ProjectileType.PROJECTILE_BULLET;
     public int m_MaxTargetNum = 1;
+    public List<GameObject> m_HitEffect;
+    #endregion
+
+    #region Runtime
     public GameObject m_Master;
     public Item m_Weapon;
     public Item m_Parts;
-    private float m_fLife = 10.0f;
+    public float m_fLife = 10.0f;
     private HashSet<int> m_Set;
-	// Use this for initialization
-	void Start () {
+    #endregion
+
+    // Use this for initialization
+    void Start () {
         m_Set = new HashSet<int>();
 	}
 	
@@ -44,13 +54,16 @@ public class Projectile : MonoBehaviour {
         }
 
         //movement
-        gameObject.transform.position += gameObject.transform.forward.normalized * m_Speed * Time.deltaTime;
-	}
+        if (m_nType == ProjectileType.PROJECTILE_BULLET) {
+            gameObject.transform.position += gameObject.transform.forward.normalized * m_Speed * Time.deltaTime;
+        }
+        
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        //if wall,cut through? rebound?
-
+        if (other.isTrigger)
+            return;
         //if entity
         if(other.gameObject != m_Master && other.gameObject.GetComponent<Entity>() != null) {
             
@@ -60,6 +73,14 @@ public class Projectile : MonoBehaviour {
 
                 //damage
                 Transceiver.SendSignal(new DSignal(m_Master, other.gameObject, "Damage", m_Damage));
+                if(m_HitEffect.Count == 0) {
+                    ModelEffect.CreateEffect(Resources.Load<GameObject>("Prefabs/Effects/Flare"), gameObject.transform.position);
+                }
+                else {
+                    for(int i=0; i<m_HitEffect.Count; i++) {
+                        ModelEffect.CreateEffect(m_HitEffect[i], gameObject.transform.position);
+                    }
+                }
 
                 //after damage
                 if (m_Weapon != null)
@@ -67,11 +88,26 @@ public class Projectile : MonoBehaviour {
                 if (m_Parts != null)
                     m_Parts.Hit(other.gameObject.GetComponent<Entity>());
 
-                if (m_Set.Count >= m_MaxTargetNum) {
+                if (m_Set.Count >= m_MaxTargetNum && m_MaxTargetNum > 0) {
                     Destroy(gameObject);
                 }
             }
-            
+        }else if(other.gameObject.tag == "SceneObj") {
+            //if wall,cut through? rebound?
+
+            if (m_HitEffect.Count == 0) {
+                ModelEffect.CreateEffect(Resources.Load<GameObject>("Prefabs/Effects/Flare"), gameObject.transform.position);
+            }
+            else {
+                for (int i = 0; i < m_HitEffect.Count; i++) {
+                    ModelEffect.CreateEffect(m_HitEffect[i], gameObject.transform.position);
+                }
+            }
+
+            //temporary destroyed
+
+
+            Destroy(gameObject);
         }
     }
 }

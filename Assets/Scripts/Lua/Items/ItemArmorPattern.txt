@@ -3,10 +3,12 @@ require "Assets.Scripts.Lua.Items.Header" --定义了一些常量
 --物品的属性表
 properties = {
 	Name =					"TestItem3";--物品名
+	Rarity =				RARITY_ADVANCED;
 	Type =					ITEM_ARMOR;
 	Armor = 				0.0;
 	Weight = 				1.0; 
 	Mesh = 					"Shell";--模型文件名
+	Price =					100;
 	Bonus = {
 		{ATTR_MAX_HP, IS_RATIO, 10.0};--{属性，是否是比例，值}
 		{ATTR_MAX_EN, IS_FIXED, 20.0};

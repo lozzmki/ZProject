@@ -7,7 +7,7 @@ public enum ItemType
     ITEM_WEAPON,
     ITEM_PARTS,
     ITEM_ARMOR,
-    ITEM_SUPPLY,
+    ITEM_CHIP,
 }
 
 public enum WeaponType
@@ -19,27 +19,47 @@ public enum WeaponType
     WEAPON_MELEE,
 }
 
+public enum ItemRarity
+{
+    RARITY_UNIQUE,
+    RARITY_BASIC,
+    RARITY_ADVANCED,
+    RARITY_RARE,
+}
 
 /// <summary>
 /// 物品的模板类
 /// 使用Lua文件装载数据
 /// </summary>
 public class Item : MonoBehaviour {
+    #region Properties
     public string m_ItemName = "Default Item Name";
     public string m_Description = "No Description";
     public ItemType m_Type;
     public WeaponType m_WeaponType;
+    public ItemRarity m_Rarity;
     public float m_AttackSpeed;
     public float m_EnergyCost;
+    public float m_SkillCost;
+    public float m_SkillCooldown;
     public float m_Damage;
     public float m_Armor;
-    public float m_Weight;
+    public int m_nChipCost;
+    public int m_Price;
     public string m_LuaScript="";
     public string m_Prefab = "";
     public string m_Projectile = "";
     public DAttributeBonus[] m_BonusList;
     public Texture2D m_Icon;
+    #endregion
+
+    #region Param
     public bool m_bPicked = false;
+    private Timer m_AttackTimer;
+    private Timer m_SkillTimer;
+    public Inventory m_Inventory;//ref to inv if picked
+    public bool m_bForSale = false;
+    #endregion
 
     public LuaCache m_Cache;
     private ItemInterface _m_interface;
@@ -52,9 +72,7 @@ public class Item : MonoBehaviour {
             return _m_interface;
         }
     }
-
-    private float m_fCooldown;
-    private float m_fFloat = 0.0f;
+    //private float m_fFloat = 0.0f;
 
     [SLua.CustomLuaClass]
     public delegate void ItemFunc(ItemInterface inter, object args);
@@ -62,21 +80,9 @@ public class Item : MonoBehaviour {
     event ItemFunc OnUpdate;
     event ItemFunc OnUse;
     event ItemFunc OnHit;
-    
-
-    //[SLua.CustomLuaClass]
-    //public delegate void ItemUsage();
-    //private ItemUsage m_UsageDelegate;
-    
-    //[SLua.CustomLuaClass]
-    //public delegate void ItemUpdate(LuaCache c, float deltaTime);
-    //private ItemUpdate m_UpdateDelegate;
 
     //if needs load data from script, clone ones shall not
     public bool m_bIfLoaded = false;
-
-
-
 
     [SLua.CustomLuaClass]
     public class ItemInterface
@@ -93,43 +99,46 @@ public class Item : MonoBehaviour {
         {
             return m_Item.m_Cache;
         }
+
+        public Entity.EntityInterface GetOwner()
+        {
+            if (m_Item.m_bPicked)
+                return m_Item.m_Inventory.gameObject.GetComponent<Entity>().m_Interface;
+            else
+                return null;
+        }
     }
-
-
-
 
 	// Use this for initialization
-	void Start () {
-
-
-    }
+	//void Start () {
+    //
+    //
+    //}
 
     // Update is called once per frame
     void Update()
     {
-        if(m_fCooldown > 0.0f) {
-            m_fCooldown -= Time.deltaTime;
-        }
+        if(m_AttackTimer != null)
+            m_AttackTimer.Update();
 
-        //animation & update
-        if (!m_bPicked) {
-            m_fFloat += Time.deltaTime;
-            if (m_fFloat > Mathf.PI)
-                m_fFloat -= Mathf.PI * 2.0f;
+        //update
+        //if (m_bPicked) {
+        //    //call update in lua
+        //    if (OnUpdate != null)
+        //        OnUpdate(m_Interface, Time.deltaTime);
+        //}
+    }
 
-            gameObject.transform.position = new Vector3(0.0f, 0.5f*Mathf.Sin(m_fFloat) + 0.8f, 0.0f) + Vector3.Scale(gameObject.transform.position, new Vector3(1, 0, 1));
-            gameObject.transform.Rotate(Vector3.up, 80.0f * Time.deltaTime);
-        }
-        else {
-            //call update in lua
-            if (OnUpdate != null)
-                OnUpdate(m_Interface, Time.deltaTime);
-        }
+    //update when picked && in hand, called by inventory
+    public void ActiveUpdate()
+    {
+        if (OnUpdate != null)
+            OnUpdate(m_Interface, Time.deltaTime);
     }
 
     public void Use()
     {
-        //pass the user ID,todo
+        //pass the user ID,FIN
         if(OnUse != null) {
             OnUse(m_Interface, Time.deltaTime);
         }
@@ -143,15 +152,30 @@ public class Item : MonoBehaviour {
 
     public void Attack()
     {
-        if(m_fCooldown <= 0.0f) {
-            m_fCooldown = 1.0f / m_AttackSpeed;
+        if(m_AttackTimer.IfExpired) {
+            m_AttackTimer.TimerTime = 1.0f / m_AttackSpeed;
+            m_AttackTimer.Reset();
         }
     }
     public bool IfCooled
     {
         get
         {
-            return m_fCooldown <= 0.0f;
+            return m_AttackTimer.IfExpired;
+        }
+    }
+    public void CastSkill()
+    {
+        if (m_SkillTimer.IfExpired) {
+            m_SkillTimer.TimerTime = m_SkillCooldown;
+            m_SkillTimer.Reset();
+        }
+    }
+    public bool IfSkillCooled
+    {
+        get
+        {
+            return m_SkillTimer.IfExpired;
         }
     }
 
@@ -166,6 +190,8 @@ public class Item : MonoBehaviour {
             _item.OnUpdate = OnUpdate;
             _item.OnHit = OnHit;
             _item.m_Cache = new LuaCache();
+            _item.m_AttackTimer = new Timer();
+            _item.m_SkillTimer = new Timer();
         }
     }
 
@@ -194,10 +220,9 @@ public class Item : MonoBehaviour {
         m_Prefab = (string)_table["Mesh"];
         GameObject _tmp = Resources.Load<GameObject>("Meshes/" + m_Prefab);
         _tmp = Instantiate(_tmp);
-        gameObject.AddComponent<MeshFilter>();
-        gameObject.AddComponent<MeshRenderer>();
-        gameObject.GetComponent<MeshFilter>().mesh = _tmp.GetComponent<MeshFilter>().mesh;
-        gameObject.GetComponent<Renderer>().material = _tmp.GetComponent<Renderer>().material;
+        gameObject.AddComponent<MeshFilter>().mesh = _tmp.GetComponent<MeshFilter>().mesh;
+        //gameObject.AddComponent<MeshRenderer>().material = _tmp.GetComponent<Renderer>().material;
+        gameObject.AddComponent<MeshRenderer>().materials = _tmp.GetComponent<Renderer>().materials;
         gameObject.transform.localScale = _tmp.transform.localScale;
         GameObject.Destroy(_tmp);
         if(gameObject.GetComponent<Transceiver>() == null)
@@ -213,8 +238,11 @@ public class Item : MonoBehaviour {
         switch (m_Type) {
             case ItemType.ITEM_WEAPON:
                 m_WeaponType = (WeaponType)System.Convert.ToInt32(_table["ShotType"]);
+                //m_WeaponType = (WeaponType)((int)_table["ShotType"]);
                 m_AttackSpeed = System.Convert.ToSingle(_table["AttackSpeed"]);
                 m_EnergyCost = System.Convert.ToSingle(_table["EnergyCost"]);
+                m_SkillCost = System.Convert.ToSingle(_table["SkillCost"]);
+                m_SkillCooldown = System.Convert.ToSingle(_table["SkillCooldown"]);
                 m_Damage = System.Convert.ToSingle(_table["FirePower"]);
                 break;
             case ItemType.ITEM_PARTS:
@@ -224,10 +252,15 @@ public class Item : MonoBehaviour {
             case ItemType.ITEM_ARMOR:
                 m_Armor = System.Convert.ToSingle(_table["Armor"]);
                 break;
+            case ItemType.ITEM_CHIP:
+                m_nChipCost = System.Convert.ToInt32(_table["Cost"]);
+                break;
             default:
                 break;
         }
-        m_Weight = System.Convert.ToSingle(_table["Weight"]);
+        m_Rarity = (ItemRarity)System.Convert.ToInt32(_table["Rarity"]);
+        
+        m_Price = System.Convert.ToInt32(_table["Price"]);
 
         SLua.LuaTable _bonus = (SLua.LuaTable)_table["Bonus"];
         m_BonusList = new DAttributeBonus[_bonus.length()];
@@ -243,15 +276,19 @@ public class Item : MonoBehaviour {
         m_bIfLoaded = true;
     }
 
-    private void MarkItem(bool val = true)
+    public void MarkItem(bool val = true)
     {
         //change shader
         if (val) {
-            gameObject.GetComponent<MeshRenderer>().material.shader = Shader.Find("ZShader/Edge");
-            gameObject.GetComponent<MeshRenderer>().material.SetColor("_OutlineCol", Color.green);
+            //MeshRenderer[] _renderers = gameObject.GetComponents<MeshRenderer>();
+            Camera.main.GetComponent<HighLightEdge>().renderList.Add(gameObject.GetComponent<MeshRenderer>());
+            ItemHUD.markItem = gameObject;
         }
-        else
-            gameObject.GetComponent<MeshRenderer>().material.shader = Shader.Find("Standard");
+        else {
+            Camera.main.GetComponent<HighLightEdge>().renderList.Clear();
+            ItemHUD.markItem = null;
+        }
+
     }
 
 

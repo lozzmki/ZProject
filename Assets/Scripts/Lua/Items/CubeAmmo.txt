@@ -3,11 +3,13 @@ require "Assets.Scripts.Lua.Items.Header" --定义了一些常量
 --物品的属性表
 properties = {
 	Name =					"CubeAmmo";--物品名
+	Rarity =				RARITY_BASIC;
 	Type =					ITEM_PARTS;
 	Damage = 				20.0;
 	Weight = 				1.0; 
 	Mesh = 					"CubeAmmo";--物品模型文件名
 	Ammo = 					"TestProj";--子弹预制体名,
+	Price =					100;
 	Bonus = {
 		{ATTR_MAX_HP, IS_RATIO, 10.0};--{属性，是否是比例，值}
 		{ATTR_MAX_EN, IS_FIXED, 20.0};

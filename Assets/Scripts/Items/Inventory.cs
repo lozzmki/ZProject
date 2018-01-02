@@ -6,25 +6,39 @@ using UnityEngine;
 public class Inventory : MonoBehaviour {
 
     public GameObject[] m_cSlots;//0-2 for primary; 3-5 for parts; 6 for armor;
+    public int m_Coins;
     private int m_nPrimaryCursor = 0;
     private int m_nPartsCursor = 3;
     public GameObject m_ItemForPick;
+    public ChipSet m_Chipset;
+    private List<GameObject> m_ChipPocket;
+    private const int c_nPocketSize = 25;
 
 	// Use this for initialization
 	void Start () {
         m_cSlots = new GameObject[7];
+        m_Chipset = new ChipSet();
+        m_ChipPocket = new List<GameObject>(c_nPocketSize);
         gameObject.GetComponent<Transceiver>().AddResolver("Pickup", PickUpItem);
         gameObject.GetComponent<Transceiver>().AddResolver("ChangePrimary", ChangePrimary);
         gameObject.GetComponent<Transceiver>().AddResolver("ChangeParts", ChangeParts);
         
     }
 	
-	// Update is called once per frame
+	//// Update is called once per frame
 	void Update () {
-		//make the equipped one showup
+        //make the equipped ones update
+        UpdateItem(m_cSlots[m_nPrimaryCursor]);//current weapon
+        UpdateItem(m_cSlots[m_nPartsCursor]);//current parts
+        UpdateItem(m_cSlots[6]);//current armor
+    }
 
-        
-	}
+    private void UpdateItem(GameObject itemObject)
+    {
+        if(null != itemObject) {
+            itemObject.GetComponent<Item>().ActiveUpdate();
+        }
+    }
 
     private void EquipItem(GameObject itemObject)
     {
@@ -42,6 +56,7 @@ public class Inventory : MonoBehaviour {
     {
         //exile it...
         itemObject.transform.position += new Vector3(10000.0f, 0.0f, 0.0f);
+        itemObject.transform.parent = null;
         itemObject.GetComponent<Item>().m_bPicked = true;
 
     }
@@ -49,25 +64,25 @@ public class Inventory : MonoBehaviour {
     {
         //return it...
         itemObject.transform.position = postion;
+        itemObject.transform.parent = GameManager.CurrentStage._stage.transform;
         itemObject.GetComponent<Item>().m_bPicked = false;
 
     }
 
-    public void PickUpItem(DSignal signal)
+    public bool PickUp(GameObject itemObject)
     {
-        GameObject itemObject = m_ItemForPick;
         Item item = itemObject.GetComponent<Item>();
         bool _ifFull = true;
         if (item.m_bPicked) {
             //already picked
-            m_ItemForPick = null;
-            return;
+            //m_ItemForPick = null;
+            return false;
         }
-        if(item != null) {//check if the object is an Item.
+        if (item != null) {//check if the object is an Item.
             switch (item.m_Type) {
                 case ItemType.ITEM_WEAPON:
-                    for(int _i=0; _i<3; _i++) {
-                        if(m_cSlots[_i] == null) {
+                    for (int _i = 0; _i < 3; _i++) {
+                        if (m_cSlots[_i] == null) {
                             m_cSlots[_i] = itemObject;
                             _ifFull = false;
                             break;
@@ -77,6 +92,8 @@ public class Inventory : MonoBehaviour {
                         //full, swap it with the one in hand.
                         MoveBack(m_cSlots[m_nPrimaryCursor], itemObject.transform.position);
                         m_cSlots[m_nPrimaryCursor] = itemObject;
+                        //apply additional bonuses
+                        EquipItem(itemObject);
                         //remove bonuses
                         UnEquipItem(m_cSlots[m_nPrimaryCursor]);
                     }
@@ -94,6 +111,8 @@ public class Inventory : MonoBehaviour {
                         //full, swap it with the one in hand.
                         MoveBack(m_cSlots[m_nPartsCursor], itemObject.transform.position);
                         m_cSlots[m_nPartsCursor] = itemObject;
+                        //apply additional bonuses
+                        EquipItem(itemObject);
                         //remove bonuses
                         UnEquipItem(m_cSlots[m_nPartsCursor]);
                     }
@@ -106,21 +125,42 @@ public class Inventory : MonoBehaviour {
                     else {
                         MoveBack(m_cSlots[6], itemObject.transform.position);
                         m_cSlots[6] = itemObject;
+                        EquipItem(itemObject);
                         UnEquipItem(m_cSlots[6]);
                     }
                     break;
-                case ItemType.ITEM_SUPPLY:
+                case ItemType.ITEM_CHIP:
+                    if(m_ChipPocket.Count < c_nPocketSize) {
+                        m_ChipPocket.Add(itemObject);
+                        //MoveAway(itemObject);
+                    }
                     break;
                 default:
                     break;
             }
 
-            //move the itemObject away,todo
+            //move the itemObject away,fin
             MoveAway(itemObject);
-               
-            //apply additional bonuses
-            EquipItem(itemObject);
+            //item.MarkItem(false);
+            return true;
         }
+        return false;
+    }
+
+    public void PickUpItem(DSignal signal)
+    {
+        Item _item = m_ItemForPick.GetComponent<Item>();
+        if (_item.m_bForSale) {
+            if (m_Coins >= _item.m_Price) {
+                m_Coins -= _item.m_Price;
+                _item.m_bForSale = false;
+            }
+            else
+                return;
+        }
+
+        PickUp(m_ItemForPick);
+        m_ItemForPick = null;
     }
 
     public void ChangePrimary(DSignal signal)
@@ -135,6 +175,8 @@ public class Inventory : MonoBehaviour {
         while (_cursor != m_nPrimaryCursor) {
             
             if (m_cSlots[_cursor] != null) {
+                UnEquipItem(m_cSlots[m_nPrimaryCursor]);
+                EquipItem(m_cSlots[_cursor]);
                 m_nPrimaryCursor = _cursor;
                 return;
             }
@@ -156,6 +198,8 @@ public class Inventory : MonoBehaviour {
         while (_cursor != m_nPartsCursor) {
 
             if (m_cSlots[_cursor] != null) {
+                UnEquipItem(m_cSlots[m_nPartsCursor]);
+                EquipItem(m_cSlots[_cursor]);
                 m_nPartsCursor = _cursor;
                 return;
             }

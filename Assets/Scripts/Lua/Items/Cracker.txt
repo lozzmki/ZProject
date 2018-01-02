@@ -1,0 +1,32 @@
+require "Assets.Scripts.Lua.Items.Header" --定义了一些常量
+--文件名为注册名
+--物品的属性表
+properties = {
+	Name =					"Cracker";--物品名
+	Type =					ITEM_WEAPON;
+	Rarity =				RARITY_UNIQUE;
+	ShotType = 				WEAPON_AUTO;
+	AttackSpeed = 			10.0;
+	EnergyCost = 			1.0;
+	FirePower = 			15.0;
+	Weight = 				1.0;
+	Mesh = 					"Shell";--模型文件名
+	Price =					100;
+	Bonus = {
+	};
+	Description = 			"击中目标使其防御力降低1，持续1秒，最多可以叠加5层。";
+}
+
+function OnHit(inter, enemy)
+	local buff = {
+		Name =				"Cracker Buff";
+		Description =		"降低防御力";
+		MaxStackNum =		5;
+		Duration =			1.0;
+		Stackable =			true;
+		Bonus = {
+			{ATTR_ARMOR, IS_FIXED, -1.0};
+		};
+	};
+	enemy:AddBuff(Buff.BuffInterface.CreateBuff(buff));
+end

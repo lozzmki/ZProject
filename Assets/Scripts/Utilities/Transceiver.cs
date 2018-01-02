@@ -25,6 +25,7 @@ public delegate void SignalResolver(DSignal signal);
 /// </summary>
 public class Transceiver : MonoBehaviour
 {
+    public int _dataCache32;//use for some occasion before transceiver is initialized
     public static bool ms_bIsOnlineMode = false;
     private Dictionary<string, SignalResolver> m_ResolverDic;
     // Use this for initialization
@@ -50,7 +51,8 @@ public class Transceiver : MonoBehaviour
     {
         if (!ms_bIsOnlineMode) {
             //single mode, send to the object directly
-            signal._receiver.GetComponent<Transceiver>().OnReceiveSignal(signal);
+            if(signal._receiver != null)
+                signal._receiver.GetComponent<Transceiver>().OnReceiveSignal(signal);
         }
         else {
             //online mode, send it to the server

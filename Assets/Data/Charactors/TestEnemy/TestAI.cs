@@ -24,7 +24,8 @@ public class TestAI : BaseAI {
             if(m_bAttacked){
                 float _ang = Random.Range(0.0f, 360.0f);
                 Vector3 _dir = new Vector3(Mathf.Cos(_ang), 0.0f, Mathf.Sin(_ang));
-                gameObject.transform.forward = _dir;
+                //gameObject.transform.forward = _dir;
+                gameObject.GetComponent<Entity>().m_MovingDirection = _dir;
                 m_fMoveTime = Random.Range(0.8f, 1.2f);
                 m_Animator.SetBool("move", true);
             }

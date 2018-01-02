@@ -12,7 +12,7 @@ public class DSizeN
     }
 }
 
-public class DPointN
+public struct DPointN
 {
     public int x, y;
     public DPointN(int xval = 0, int yval = 0)
@@ -26,6 +26,18 @@ public class DPointN
     public bool Equals(DPointN other)
     {
         return x == other.x && y == other.y;
+    }
+    public DPointN Offset(DPointN other)
+    {
+        return new DPointN(x + other.x, y + other.y);
+    }
+    public DPointN OffsetX(int val)
+    {
+        return new DPointN(x + val, y);
+    }
+    public DPointN OffsetY(int val)
+    {
+        return new DPointN(x, y + val);
     }
 }
 

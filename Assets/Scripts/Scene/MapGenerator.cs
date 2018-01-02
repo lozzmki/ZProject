@@ -62,11 +62,13 @@ class DSavedRoom
     //contains the border
     public Rect d_Rect;
     public int d_ID;
+    public int d_RoomType;
 
-    public DSavedRoom(Rect rct, int ID)
+    public DSavedRoom(Rect rct, int ID, int roomType)
     {
         d_Rect = rct;
         d_ID = ID;
+        d_RoomType = roomType;
     }
 }
 
@@ -112,7 +114,7 @@ class MapGenerator
 
     }
 
-    private static void RegisterNewRoom(DRoom room, DDoor door/*the one connected with the map*/, DPointN globalAnchor)
+    private static void RegisterNewRoom(DRoom room, DDoor door/*the one connected with the map*/, DPointN globalAnchor, int roomType)
     {
         //DOC:
         //recheck the opendoor list with the new room, remove unaccessable doors;
@@ -167,21 +169,20 @@ class MapGenerator
         }
 
         //Add the room to roomlist
-        m_RoomList.AddLast(new DSavedRoom(_newRoom, room.d_ID));
+        m_RoomList.AddLast(new DSavedRoom(_newRoom, room.d_ID, roomType));
     }
 
-    private static bool AddNewRoom()
+    private static bool AddNewRoom(int roomType=1)
     {
-        //Random pick a new **non-start** room,todo
-        DRoom _room = RoomPresetsManager.GetInstance().RandomPicking().GetRoomInfo();
-        //DRoom _room = RoomPresetsManager.GetInstance().GetPreset(0).GetRoomInfo();
+        //Random pick a new room
+        DRoom _room = RoomPresetsManager.GetInstance(roomType).RandomPicking().GetRoomInfo();
 
         foreach (DDoor _opendoor in m_OpeningDoorList) {
             foreach (DDoor _door in _room.d_DoorList) {
                 if (_door.CheckPair(_opendoor)) {
                     if (CheckRoom(_room, _door, _opendoor.d_ptGlobalPos)) {
 
-                        RegisterNewRoom(_room, _door, _opendoor.d_ptGlobalPos);
+                        RegisterNewRoom(_room, _door, _opendoor.d_ptGlobalPos, roomType);
 
                         return true;
                     }
@@ -223,15 +224,33 @@ class MapGenerator
     {
         Clear();
         //Random pick a **start** room and register it;
-        DRoom _room = RoomPresetsManager.GetInstance().RandomPicking().GetRoomInfo();
+        DRoom _room = RoomPresetsManager.GetInstance(0).RandomPicking().GetRoomInfo();
         //DRoom _room = RoomPresetsManager.GetInstance().GetPreset(0).GetRoomInfo();
-        RegisterNewRoom(_room, _room.d_DoorList.First.Value, new DPointN(0, 0));
+        RegisterNewRoom(_room, _room.d_DoorList.First.Value, new DPointN(0, 0), 0);
 
+        //normal rooms
         for(int i=0; i<times; i++) {
             AddNewRoom();
             if (m_OpeningDoorList.Count == 0) {
-                Debug.Log(i);
                 break;
+            }
+        }
+
+        //place boss room
+        bool _bSuccess = false;
+        for (int _try=0; !_bSuccess && (_try < 100); _try++) {
+            _bSuccess = AddNewRoom(3);
+            
+        }
+
+        //place two treasure rooms
+        _bSuccess = false;
+        int _count = 0;
+        for (int _try = 0; !_bSuccess && (_try < 200); _try++) {
+            if (AddNewRoom(2)) {
+                _count++;
+                if (_count >= 2)
+                    _bSuccess = true;
             }
         }
 
@@ -240,8 +259,10 @@ class MapGenerator
         
         Rect _rct = GetMapRect();
         Stage _stage = new Stage((int)_rct.width, (int)_rct.height);
-        foreach(DSavedRoom _svroom in m_RoomList) {
-            DRoomPreset _preset = RoomPresetsManager.GetInstance().GetPreset(_svroom.d_ID);
+        _stage.m_FirstJoint = new DPointN(-_room.d_DoorList.First.Value.x-(int)_rct.x, -_room.d_DoorList.First.Value.y-(int)_rct.y);
+        _stage.m_StartPoint = new Vector3(_room.d_Size.d_nWidth / 2.0f - _room.d_DoorList.First.Value.x - _rct.x, 1.0f, _room.d_Size.d_nHeight / 2.0f - _room.d_DoorList.First.Value.y - _rct.y)*DCell.CELL_BORDER_LENGTH;
+        foreach (DSavedRoom _svroom in m_RoomList) {
+            DRoomPreset _preset = RoomPresetsManager.GetInstance(_svroom.d_RoomType).GetPreset(_svroom.d_ID);
             if (_preset == null) continue;
 
             int _x = (int)_svroom.d_Rect.x - (int)_rct.x;
@@ -255,20 +276,28 @@ class MapGenerator
                     int _presetPos = i + j * _w;
 
                     DCell _cell = _preset.d_Data[_presetPos];
+
                     if (_cell.d_bIsDoor)
-                        _stage.GetMap()[_mapPos] = new DCell(0, false, true, false);
+                        //_stage.GetMap()[_mapPos] = new DCell(0, false, true); 
+                        _stage.PressCell(_mapPos, new DCell(0, false, true));
                     else
-                        _stage.GetMap()[_mapPos] = _cell;
+                        _stage.PressCell(_mapPos, _cell);
                 }
+            }
+            //Copy Objects
+            for(int i=0; i<_preset.d_Objects.Count; i++) {
+                var _obj = _preset.d_Objects[i];
+                _stage.m_Objects.Add(new DSceneObject(_obj.d_Prefab, _x + _obj.x, _y + _obj.y, _obj.d_Data));
             }
         }
         //Add ClosedDoors to data
-        foreach(DDoor _door in m_ClosedDoorList) {
+        foreach (DDoor _door in m_ClosedDoorList) {
             int _x = _door.d_ptGlobalPos.x - (int)_rct.x;
             int _y = _door.d_ptGlobalPos.y - (int)_rct.y;
             int _mapPos = _x + _y * (int)_rct.width;
-            _stage.GetMap()[_mapPos] = new DCell(0, true, false, false);//get data from DDoor?todo
+            _stage.PressCell(_mapPos, new DCell(0, true, false));//get data from DDoor?todo
         }
+        
 
         return _stage;
     }
